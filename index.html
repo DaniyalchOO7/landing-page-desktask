@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DeskTask: paperwork sorted for independent insurance agencies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F0F4EF;
+  --panel: #FFFFFF;
+  --ink: #16241C;
+  --muted: #56655C;
+  --line: #CBD6CC;
+  --accent: #1F6B4A;
+  --accent-ink: #FFFFFF;
+  --mark: #F3D46B;
+  --warn-bg: #FFF1D6;
+  --warn-ink: #6B4A00;
+  --display: "Bricolage Grotesque", "Trebuchet MS", "Segoe UI", sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1813; --panel: #16241C; --ink: #E5EEE7; --muted: #9DB0A3;
+    --line: #2A3D32; --accent: #5CC08F; --accent-ink: #0E1813;
+    --mark: #C9A63C; --warn-bg: #3A2E10; --warn-ink: #F3D98F;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1813; --panel: #16241C; --ink: #E5EEE7; --muted: #9DB0A3;
+  --line: #2A3D32; --accent: #5CC08F; --accent-ink: #0E1813;
+  --mark: #C9A63C; --warn-bg: #3A2E10; --warn-ink: #F3D98F;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.08; margin: 0; letter-spacing: -0.015em; }
+h1 { font-size: clamp(2.3rem, 6.4vw, 4rem); font-weight: 800; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 800; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; max-width: 62ch; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+header.top { padding: 22px 0 0; }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; }
+.brand span { background: linear-gradient(transparent 58%, var(--mark) 58%); padding: 0 2px; }
+.pill { font-size: .9rem; color: var(--muted); }
+
+.btn {
+  display: inline-block; background: var(--accent); color: var(--accent-ink);
+  font-weight: 600; font-size: 1rem; padding: 14px 22px; border-radius: 10px;
+  text-decoration: none; border: 2px solid var(--accent);
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+
+.hero { padding: 44px 0 64px; }
+.hero-grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
+.hero p.lead { margin-top: 20px; font-size: 1.2rem; color: var(--muted); }
+.hero .actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero small { display: block; margin-top: 14px; color: var(--muted); font-size: .92rem; }
+
+.inbox {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 6px 18px 16px; box-shadow: 0 1px 0 var(--line);
+}
+.inbox-head { display: flex; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
+.row { padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.row:last-of-type { border-bottom: 0; }
+.raw { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .82rem; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); overflow-wrap: anywhere; }
+.sorted { margin-top: 3px; font-weight: 600; font-size: .98rem; line-height: 1.35; animation: stamp .5s ease-out both; animation-delay: calc(var(--i) * 280ms + 300ms); }
+.sorted b { background: linear-gradient(transparent 60%, var(--mark) 60%); font-weight: 600; }
+.sorted .tag { display: block; font-weight: 400; color: var(--muted); font-size: .88rem; }
+.missing { margin-top: 12px; background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 10px 12px; font-size: .92rem; line-height: 1.4; animation: stamp .5s ease-out both; animation-delay: 1900ms; }
+@keyframes stamp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+section { padding: 56px 0; border-top: 1px solid var(--line); }
+section > .wrap > h2 { margin-bottom: 14px; }
+.sub { color: var(--muted); }
+
+.steps { list-style: none; counter-reset: s; margin: 32px 0 0; padding: 0; display: grid; gap: 26px; grid-template-columns: 1fr; }
+.steps li { counter-increment: s; padding-left: 52px; position: relative; }
+.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 0; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink); font-family: var(--display); font-weight: 800;
+  display: grid; place-items: center;
+}
+.steps h3 { margin-bottom: 4px; }
+.steps p { color: var(--muted); }
+
+.two { display: grid; gap: 28px; grid-template-columns: 1fr; margin-top: 28px; }
+.two h3 { margin-bottom: 10px; }
+.two ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+.two li { margin-bottom: 8px; }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+
+.cta { background: var(--accent); color: var(--accent-ink); border-radius: 18px; padding: 36px 26px; }
+.cta h2 { color: var(--accent-ink); }
+.cta p { margin-top: 12px; color: var(--accent-ink); opacity: .92; }
+.cta .btn { margin-top: 22px; background: var(--accent-ink); color: var(--accent); border-color: var(--accent-ink); }
+
+details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+details summary { cursor: pointer; font-weight: 600; }
+details p { margin-top: 10px; color: var(--muted); }
+
+footer { padding: 30px 0 44px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); }
+
+.plans { display: grid; gap: 16px; grid-template-columns: 1fr; margin-top: 28px; }
+.plan { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 6px; }
+.plan.feat { border: 2px solid var(--accent); }
+.plan .price { font-family: var(--display); font-weight: 800; font-size: 2rem; }
+.plan .price small { font-family: var(--body); font-weight: 400; font-size: .95rem; color: var(--muted); }
+.plan .cap { color: var(--muted); font-size: .95rem; }
+.plan ul { margin: 8px 0 0; padding-left: 1.1rem; color: var(--muted); font-size: .95rem; }
+.note { margin-top: 16px; color: var(--muted); font-size: .92rem; }
+
+.calc { display: grid; gap: 24px; grid-template-columns: 1fr; margin-top: 28px; }
+.calc .inputs { display: grid; gap: 14px; }
+.field label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+.field input { width: 100%; min-height: 48px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--muted); border-radius: 8px; padding: 0 12px; }
+.field .hint { color: var(--muted); font-size: .85rem; margin-top: 3px; }
+.result .big { font-family: var(--display); font-weight: 800; font-size: 2.4rem; line-height: 1.05; }
+.result dl { margin: 14px 0 0; display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; font-size: .98rem; }
+.result dt { color: var(--muted); }
+.result dd { margin: 0; font-weight: 600; text-align: right; }
+.result .verdict { margin-top: 14px; padding: 10px 12px; border-radius: 8px; background: var(--warn-bg); color: var(--warn-ink); font-size: .92rem; }
+
+@media (min-width: 860px) {
+  .plans { grid-template-columns: repeat(3, 1fr); }
+  .calc { grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .hero { padding: 72px 0 84px; }
+  .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 56px; }
+  .steps { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .two { grid-template-columns: 1fr 1fr; }
+  .cta { padding: 52px 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sorted, .missing { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span>DeskTask</span></div>
+    <div class="pill">7-day free trial for local agencies &middot; <a href="https://desktask-eddy279pwyxlcza78yugwb.streamlit.app/">Sign in</a></div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Client paperwork arrives sorted, not scattered.</h1>
+        <p class="lead">DeskTask reads the documents your clients send, files each one under the right client and policy, and reminds them about what's still missing. Your team stops renaming attachments and starts writing policies.</p>
+        <div class="actions">
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeuYad3WeJd9ytNFdMwLIxdFngzJSZl4d5GpJqTNbDlh20Xsw/viewform?usp=publish-editor">Start your 7-day free trial</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+          <a class="btn ghost" href="DeskTask-demo-screens.html">See the screens</a>
+        </div>
+      </div>
+
+      <div class="inbox" aria-label="Example of documents before and after DeskTask, using sample data">
+        <div class="inbox-head"><span>Monday's inbox</span><span>Sample data</span></div>
+        <div class="row" style="--i:0">
+          <div class="raw">scan_0043.pdf</div>
+          <div class="sorted" style="--i:0"><b>Alvarez, M.</b> · Auto renewal<span class="tag">Driver's license</span></div>
+        </div>
+        <div class="row">
+          <div class="raw">Re: renewal docs (3).pdf</div>
+          <div class="sorted" style="--i:1"><b>Okafor, T.</b> · Homeowners renewal<span class="tag">Prior policy declarations page</span></div>
+        </div>
+        <div class="row">
+          <div class="raw">IMG_2291.jpg</div>
+          <div class="sorted" style="--i:2"><b>Harbor Bakery LLC</b> · Workers' comp<span class="tag">Payroll summary</span></div>
+        </div>
+        <div class="row">
+          <div class="raw">loss runs final FINAL.pdf</div>
+          <div class="sorted" style="--i:3"><b>Dunn Plumbing</b> · Commercial package<span class="tag">Loss runs</span></div>
+        </div>
+        <div class="missing">Still missing for Alvarez, M.: proof of prior insurance. Reminder sends Tuesday.</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>What happens to each document</h2>
+      <p class="sub">Clients keep using email or a simple upload link. Nothing changes for them.</p>
+      <ol class="steps">
+        <li>
+          <h3>It arrives</h3>
+          <p>Clients email files or upload them through a private link. Photos, scans, and PDFs all work, even the crooked ones.</p>
+        </li>
+        <li>
+          <h3>It gets recognized</h3>
+          <p>DeskTask identifies the document type, such as a driver's license, declarations page, loss run, or certificate request, and matches it to the client and policy.</p>
+        </li>
+        <li>
+          <h3>It gets filed and chased</h3>
+          <p>The document lands in the right client folder with a clear name. If something's missing, DeskTask asks the client for it on a schedule you set.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>You stay in charge</h2>
+      <div class="two">
+        <div class="box">
+          <h3>What DeskTask does</h3>
+          <ul>
+            <li>Sorts and names incoming documents</li>
+            <li>Matches them to the right client and policy</li>
+            <li>Tracks what's still missing per client</li>
+            <li>Sends reminders in your voice</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>What it never does</h3>
+          <ul>
+            <li>Quote, bind, or change a policy</li>
+            <li>Give coverage advice</li>
+            <li>Send anything to a carrier without your approval</li>
+            <li>Replace your management system. It works beside it</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Client data stays yours</h2>
+      <div class="two">
+        <div class="box">
+          <h3>Handled carefully</h3>
+          <ul>
+            <li>Encrypted when sent and when stored</li>
+            <li>Original files are deleted automatically 30 days after filing; the extracted details stay searchable</li>
+            <li>Your clients' files are never used to train AI models</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Free trial terms</h3>
+          <ul>
+            <li>7 days free, with up to 100 uploads</li>
+            <li>Pick your plan first; cancel before day 7 and you are not charged</li>
+            <li>We remind you 2 days before the trial ends</li>
+            <li>Start with sample or anonymized documents if you prefer</li>
+            <li>A one-page security summary is available on request</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="wrap">
+      <h2>See it before you decide</h2>
+      <p class="sub">Two ways to look, both with made-up data only.</p>
+      <ol class="steps">
+        <li>
+          <h3>Click through the screens</h3>
+          <p>A quick tour of every screen: today's list, client files, review, search, and settings. Nothing to sign up for. It runs in your browser and shows invented clients.</p>
+          <p><a class="btn ghost" href="DeskTask-demo-screens.html">Open the screens</a></p>
+        </li>
+        <li>
+          <h3>Try the working version</h3>
+          <p>A live copy that reads real files, loaded with sample clients. Please upload fake or sample documents only. Ask us for the demo login.</p>
+          <p><a class="btn ghost" href="https://desktask-eddy279pwyxlcza78yugwb.streamlit.app/">Open the live demo</a></p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="savings">
+    <div class="wrap">
+      <h2>What would it save your agency?</h2>
+      <p class="sub">Use your own numbers. Time how long your team really takes to file one document, enter it here, and the math updates. Our defaults are conservative guesses, not promises.</p>
+      <div class="calc">
+        <form class="inputs" onsubmit="return false" aria-label="Savings calculator">
+          <div class="field"><label for="c-docs">Documents your team handles per month</label><input id="c-docs" type="number" inputmode="numeric" min="0" step="10" value="1000"></div>
+          <div class="field"><label for="c-manual">Minutes to handle one document today</label><input id="c-manual" type="number" inputmode="decimal" min="0" step="0.5" value="5"><div class="hint">Open it, identify it, name it, file it, and key in details if you do that.</div></div>
+          <div class="field"><label for="c-with">Minutes per document with DeskTask</label><input id="c-with" type="number" inputmode="decimal" min="0" step="0.5" value="1.5"><div class="hint">Quick review plus moving the file into your system.</div></div>
+          <div class="field"><label for="c-rate">Staff cost per hour, including payroll costs ($)</label><input id="c-rate" type="number" inputmode="decimal" min="0" step="1" value="28"></div>
+        </form>
+        <div class="box result" aria-live="polite">
+          <div class="sub">Staff time freed per month</div>
+          <div class="big" id="r-hours">58.3 hours</div>
+          <dl>
+            <dt>Value of that time</dt><dd id="r-value">$1,633</dd>
+            <dt>Matching plan</dt><dd id="r-plan">Plus</dd>
+            <dt>Plan price per month</dt><dd id="r-price">$950</dd>
+            <dt>Left over after the plan</dt><dd id="r-net">$683</dd>
+          </dl>
+          <div class="verdict" id="r-note">Estimates only. Your real savings depend on your documents and your team.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <h2>Simple monthly plans</h2>
+      <p class="sub">Every plan starts with a 7-day free trial and 100 uploads. Pick the plan that fits your volume.</p>
+      <div class="plans">
+        <div class="plan">
+          <h3>Starter</h3>
+          <div class="price">$500<small> / month</small></div>
+          <div class="cap">Up to 400 documents a month</div>
+          <ul><li>Sorting, naming, matching</li><li>Review list</li><li>Client upload links</li></ul>
+        </div>
+        <div class="plan">
+          <h3>Standard</h3>
+          <div class="price">$750<small> / month</small></div>
+          <div class="cap">Up to 700 documents a month</div>
+          <ul><li>Everything in Starter</li><li>Missing-document reminders</li><li>Email intake</li></ul>
+        </div>
+        <div class="plan feat">
+          <h3>Plus</h3>
+          <div class="price">$950<small> / month</small></div>
+          <div class="cap">Up to 1,200 documents a month</div>
+          <ul><li>Everything in Standard</li><li>Priority setup help</li><li>Or $10,500 a year (one month free)</li></ul>
+        </div>
+      </div>
+      <p class="note"><strong>Founders offer:</strong> start your trial and, before it ends, choose 15% off your first 3 months, or the annual plan with a month free. Prices are planned and may change before launch.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Questions agencies ask</h2>
+      <details>
+        <summary>Do I have to switch software?</summary>
+        <p>No. DeskTask works alongside whatever you use now. Filed documents can be downloaded into your existing system at any time.</p>
+      </details>
+      <details>
+        <summary>Will my clients notice a difference?</summary>
+        <p>They keep emailing or uploading like before. The only change is friendlier reminders when something is missing.</p>
+      </details>
+      <details>
+        <summary>What if it gets a document wrong?</summary>
+        <p>Anything DeskTask isn't sure about goes to a review list for your team. Nothing is filed silently when confidence is low.</p>
+      </details>
+      <details>
+        <summary>How does the free trial work?</summary>
+        <p>Choose a plan, start your 7 days, and upload up to 100 documents. We remind you 2 days before it ends. Cancel before day 7 and you are not charged; otherwise your plan starts. Either way, we would love your honest feedback.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta">
+        <h2>Try it with your own paperwork</h2>
+        <p>Tell us how your team handles incoming documents today. A 15-minute conversation is enough to get started.</p>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeuYad3WeJd9ytNFdMwLIxdFngzJSZl4d5GpJqTNbDlh20Xsw/viewform?usp=dialog">Start your 7-day free trial</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">DeskTask is an early prototype. Example names and documents on this page are fictional. Questions: <a href="mailto:">customersupport@desktask.co</a></div>
+</footer>
+
+<script>
+(function () {
+  // Edit these to change the plans. Prices in dollars per month.
+  var PLANS = [
+    { name: "Starter",  price: 500,  cap: 400 },
+    { name: "Standard", price: 750, cap: 700 },
+    { name: "Plus",     price: 950,            cap: 1200 }
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var money = function (n) { return (n < 0 ? "-$" : "$") + Math.round(Math.abs(n)).toLocaleString("en-US"); };
+  var num = function (id) { var v = parseFloat($(id).value); return isFinite(v) && v >= 0 ? v : 0; };
+
+  function update() {
+    var docs = num("c-docs"), manual = num("c-manual"), withDf = num("c-with"), rate = num("c-rate");
+    var saved = Math.max(0, manual - withDf);
+    var hours = docs * saved / 60;
+    var value = hours * rate;
+    var plan = null;
+    for (var i = 0; i < PLANS.length; i++) { if (docs <= PLANS[i].cap) { plan = PLANS[i]; break; } }
+
+    $("r-hours").textContent = (Math.round(hours * 10) / 10).toLocaleString("en-US") + " hours";
+    $("r-value").textContent = money(value);
+    var note = $("r-note");
+    if (!plan) {
+      $("r-plan").textContent = "Custom";
+      $("r-price").textContent = "Let's talk";
+      $("r-net").textContent = "n/a";
+      note.textContent = "That volume is above our Plus plan. Contact us for custom pricing.";
+      return;
+    }
+    $("r-plan").textContent = plan.name;
+    $("r-price").textContent = money(plan.price);
+    var net = value - plan.price;
+    $("r-net").textContent = money(net);
+    if (saved <= 0) note.textContent = "With these numbers DeskTask would not save time. Check the minutes you entered.";
+    else if (net < 0) note.textContent = "At these numbers the plan costs more than the time it frees. Try timing a few real documents.";
+    else note.textContent = "Estimates only. Your real savings depend on your documents and your team.";
+  }
+  ["c-docs", "c-manual", "c-with", "c-rate"].forEach(function (id) { $(id).addEventListener("input", update); });
+  update();
+})();
+</script>
+</body>
+</html>
