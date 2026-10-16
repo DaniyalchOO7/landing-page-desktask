@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terms of Service | DeskTask</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+
+/* Layout: sticky sidebar TOC + main content column, collapses to single column on mobile */
+
+:root {
+  --bg:          #f8f7f5;
+  --bg-surface:  #ffffff;
+  --fg:          #1c1a17;
+  --fg-muted:    #5c5750;
+  --border:      #e0ddd8;
+  --accent:      #2c5282;
+  --accent-light:#ebf1fa;
+  --toc-active:  #2c5282;
+  --section-num: #a09890;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:          #111210;
+    --bg-surface:  #1a1917;
+    --fg:          #e8e5df;
+    --fg-muted:    #8c8880;
+    --border:      #2e2c28;
+    --accent:      #6b9fd4;
+    --accent-light:#1a2535;
+    --toc-active:  #6b9fd4;
+    --section-num: #5c5850;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:          #111210;
+  --bg-surface:  #1a1917;
+  --fg:          #e8e5df;
+  --fg-muted:    #8c8880;
+  --border:      #2e2c28;
+  --accent:      #6b9fd4;
+  --accent-light:#1a2535;
+  --toc-active:  #6b9fd4;
+  --section-num: #5c5850;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  padding-inline: 16px;
+}
+
+/* Page shell */
+.shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 48px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .shell {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* Header */
+.doc-header {
+  grid-column: 1 / -1;
+  border-bottom: 1px solid var(--border);
+  padding-block: 40px 32px;
+}
+
+.doc-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+
+.doc-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+
+.doc-meta span { display: flex; align-items: center; gap: 5px; }
+
+/* TOC sidebar */
+.toc {
+  padding-block: 32px 48px;
+}
+
+@media (min-width: 761px) {
+  .toc {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 24px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .toc {
+    display: none;
+  }
+}
+
+.toc-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0 0 12px;
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toc-list a {
+  display: block;
+  font-size: 13px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding: 5px 10px 5px 8px;
+  border-left: 2px solid transparent;
+  border-radius: 0 4px 4px 0;
+  transition: color .15s, border-color .15s, background .15s;
+  line-height: 1.4;
+}
+
+.toc-list a:hover,
+.toc-list a.active {
+  color: var(--toc-active);
+  border-left-color: var(--toc-active);
+  background: var(--accent-light);
+}
+
+/* Main content */
+.content {
+  padding-block: 32px 80px;
+  min-width: 0;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 52px;
+  scroll-margin-top: 24px;
+}
+
+.section-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--section-num);
+  margin: 0 0 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.section h2 {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.section p {
+  color: var(--fg);
+  margin: 0 0 14px;
+  max-width: 68ch;
+}
+
+.section p:last-child { margin-bottom: 0; }
+
+.section ul, .section ol {
+  max-width: 68ch;
+  padding-left: 20px;
+  margin: 0 0 14px;
+}
+
+.section li {
+  margin-bottom: 8px;
+}
+
+/* Callout boxes */
+.callout {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 18px 0;
+  max-width: 68ch;
+}
+
+.callout strong {
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.callout p { margin: 0; font-size: 14px; }
+
+/* Divider */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 52px;
+}
+
+/* Contact card */
+.contact-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  max-width: 480px;
+}
+
+.contact-card h3 {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+.contact-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.contact-row dt {
+  font-weight: 600;
+  color: var(--fg-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.contact-row dd {
+  margin: 0 0 8px;
+  color: var(--fg);
+}
+
+/* Footer strip */
+.doc-footer {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--border);
+  padding-block: 24px 40px;
+  font-size: 13px;
+  color: var(--fg-muted);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Strong highlight */
+strong { font-weight: 600; }
+
+/* Definition-style terms */
+.term-def {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 0 0 10px;
+  max-width: 68ch;
+}
+
+.term-def dt {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.term-def dd {
+  margin: 0;
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+dl.definitions { margin: 0; }
+dl.definitions .term-def { display: block; }
+
+.ph { background: #F3D46B; color: #1c1a17; padding: 0 3px; border-radius: 3px; font-weight: 500; }
+.draft { background: #FFF1D6; color: #6B4A00; border-radius: 8px; padding: 14px 18px; margin: 0 0 18px; max-width: 68ch; font-size: 14px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .draft { background: #3A2E10; color: #F3D98F; } }
+:root[data-theme="dark"] .draft { background: #3A2E10; color: #F3D98F; }
+.back { font-size: 13px; margin: 0 0 14px; }
+.back a { color: var(--accent); text-decoration: none; }
+html { scroll-behavior: smooth; }
+.section p, .section li { overflow-wrap: anywhere; }
+a { color: var(--accent); }
+
+</style>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="shell">
+
+  <header class="doc-header">
+    <p class="back"><a href="/">&larr; DeskTask</a> &middot; <a href="privacy.html">Privacy Policy</a></p>
+    <p class="doc-eyebrow">Legal Agreement</p>
+    <h1 class="doc-title">Terms of Service</h1>
+    <div class="doc-meta">
+      <span>Effective Date: October 16, 2026</span>
+      <span>Last Updated: October 16, 2026</span>
+      <span>Version 1.0</span>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-label">Contents</p>
+    <ol class="toc-list">
+<li><a href="#s1">1. Agreement to Terms</a></li>
+<li><a href="#s2">2. Definitions</a></li>
+<li><a href="#s3">3. Eligibility and Business Use</a></li>
+<li><a href="#s4">4. The Service</a></li>
+<li><a href="#s5">5. Free Trial, Plans, and Billing</a></li>
+<li><a href="#s6">6. Accounts and Security</a></li>
+<li><a href="#s7">7. Acceptable Use</a></li>
+<li><a href="#s8">8. Your Data</a></li>
+<li><a href="#s9">9. AI Output Must Be Checked</a></li>
+<li><a href="#s10">10. Privacy, Security, and Providers</a></li>
+<li><a href="#s11">11. Confidentiality</a></li>
+<li><a href="#s12">12. Availability, Support, and Backups</a></li>
+<li><a href="#s13">13. Intellectual Property</a></li>
+<li><a href="#s14">14. Disclaimers</a></li>
+<li><a href="#s15">15. Limitation of Liability</a></li>
+<li><a href="#s16">16. Indemnification</a></li>
+<li><a href="#s17">17. Dispute Resolution</a></li>
+<li><a href="#s18">18. Termination</a></li>
+<li><a href="#s19">19. Governing Law</a></li>
+<li><a href="#s20">20. Changes to These Terms</a></li>
+<li><a href="#s21">21. General Terms</a></li>
+<li><a href="#s22">22. Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+    <section class="section" id="s1">
+      <p class="section-num">01</p>
+      <h2>Agreement to Terms</h2>
+      <div class="callout">
+  <strong>Please Read Carefully</strong>
+  <p>These Terms of Service are a legally binding agreement between you and the Company. By accepting them, starting a trial, paying, or using the Service, you agree to be bound by them.</p>
+</div>
+<p>These Terms of Service (<strong>"Terms"</strong>) govern your access to and use of DeskTask and related services (the <strong>"Service"</strong>). They include our <a href="privacy.html">Privacy Policy</a>, which is part of these Terms.</p>
+<p>You accept these Terms by checking the acceptance box on our signup form or payment page, by starting a trial or paying for a Plan, or by using the Service, whichever happens first. If you do not agree, do not use the Service.</p>
+<p>If you accept these Terms for an agency or other organization, you confirm that you have authority to bind it, and "you" means that organization.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s2">
+      <p class="section-num">02</p>
+      <h2>Definitions</h2>
+      <dl class="definitions">
+  <div class="term-def"><dt>"Company," "we," "us," "our"</dt><dd>NexoraAI LLC, a Massachusetts limited liability company that operates the Service.</dd></div>
+  <div class="term-def"><dt>"Service"</dt><dd>The DeskTask software, the website at desktask.co, each Agency's separate installation, and related documentation and support.</dd></div>
+  <div class="term-def"><dt>"Agency," "you," "your"</dt><dd>The insurance agency or other business that signs up for the Service, and where the context requires, its Authorized Users.</dd></div>
+  <div class="term-def"><dt>"Authorized User"</dt><dd>An employee or contractor of the Agency who has been given access to the Agency's account.</dd></div>
+  <div class="term-def"><dt>"Agency Data"</dt><dd>All documents, files, text, extracted details, client information, and other content that the Agency or its Authorized Users upload to or create in the Service.</dd></div>
+  <div class="term-def"><dt>"AI Output"</dt><dd>Any extraction, classification, match, summary, answer, or other result the Service produces using artificial intelligence.</dd></div>
+  <div class="term-def"><dt>"Plan"</dt><dd>A paid subscription tier, with its monthly upload limit and client-profile limit, as shown on our website or at checkout.</dd></div>
+  <div class="term-def"><dt>"Trial"</dt><dd>The introductory period described in <a href="#s5">Section 5</a>.</dd></div>
+  <div class="term-def"><dt>"Providers"</dt><dd>The third-party companies we use to run the Service, such as AI, hosting, payment, and email providers, listed in the Privacy Policy.</dd></div>
+</dl>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s3">
+      <p class="section-num">03</p>
+      <h2>Eligibility and Business Use</h2>
+      <p>The Service is for businesses in the United States. It is not offered to consumers for personal use. By using the Service you confirm that:</p>
+<ul>
+  <li>You are at least 18 years old and have the legal capacity to enter into a contract;</li>
+  <li>You have authority to accept these Terms for your Agency;</li>
+  <li>You are not barred from using the Service under applicable law;</li>
+  <li>Your use of the Service will comply with all laws that apply to you, including insurance licensing, privacy, and data security rules.</li>
+</ul>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s4">
+      <p class="section-num">04</p>
+      <h2>The Service</h2>
+      <p>The Service reads documents your team uploads (PDFs, scans, and photos), extracts details such as names, dates, and policy information, files them under client profiles, and lets your team search and ask questions about them. Each Agency has its own separate installation and database.</p>
+<p><strong>Early-stage product.</strong> DeskTask is a new product. Features may change, improve, or be removed, and it may contain errors. We will give reasonable notice of changes that significantly reduce functionality you rely on, where we can.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s5">
+      <p class="section-num">05</p>
+      <h2>Free Trial, Plans, and Billing</h2>
+      <p><strong>Trial.</strong> The Trial lasts 7 days and includes up to 100 uploads. A payment card is required to start it, and you choose a Plan when you sign up. We do not charge you during the Trial.</p>
+<p><strong>Automatic conversion.</strong> Unless you cancel before the Trial ends, your card is charged for the Plan you selected when the Trial ends, and then at the start of each monthly billing period (or each annual period, if you chose annual billing) until you cancel. We will send a reminder email at least 2 days before the Trial ends (this is a courtesy, and the Trial still converts if you do not cancel).</p>
+<p><strong>Plans and limits.</strong> Each Plan has a monthly upload limit and a client-profile limit (currently Starter: $500 per month, 400 uploads, 5 client profiles; Standard: $750 per month, 700 uploads, 10 client profiles; Plus: $950 per month, 1,200 uploads, 15 client profiles). When you reach your upload limit, new uploads pause until the next period or until you change Plans. Existing documents remain available, and you can still view and export your data.</p>
+<p><strong>Payment.</strong> Fees are in U.S. dollars, billed in advance, and processed by Stripe. By providing a payment method you authorize us to charge it for all fees under your Plan. We do not store your full card number.</p>
+<p><strong>Failed payments.</strong> If a payment fails, uploads are paused right away. You can still view and export your data. We may suspend or end the account if the payment is not resolved within 14 days.</p>
+<p><strong>Disputed charges.</strong> If you dispute a charge with your card issuer before contacting us, we may pause the account until the dispute is resolved.</p>
+<p><strong>How to cancel.</strong> You can cancel at any time through the billing link we provide or by emailing us. Cancellation takes effect at the end of the period you have already paid for, and you keep access until then.</p>
+<p><strong>Refunds.</strong> Except where the law requires otherwise, or where we agree in writing, fees already paid are not refundable. If we end the Service under <a href="#s18">Section 18</a>, we will refund prepaid fees for the period after it ends. If you believe you were charged in error, contact us within 14 days of the charge.</p>
+<p><strong>Price changes.</strong> We may change prices on at least 30 days' notice before your next billing period. If you do not agree, you may cancel before the change takes effect. <strong>Promotions:</strong> a discount or special offer applies only on the terms stated when it was offered.</p>
+<p><strong>Taxes.</strong> Fees do not include taxes. You are responsible for any sales, use, or similar taxes that apply, except taxes on our income.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s6">
+      <p class="section-num">06</p>
+      <h2>Accounts and Security</h2>
+      <p>An Agency has an owner account and may add Authorized Users. You agree to:</p>
+<ul>
+  <li>Give us accurate, current account and billing information;</li>
+  <li>Use strong passwords (at least 12 characters) and keep all credentials confidential;</li>
+  <li>Turn on two-factor authentication for every user;</li>
+  <li>Not share credentials or let anyone outside your Agency use the account;</li>
+  <li>Remove access promptly when someone leaves your Agency;</li>
+  <li>Notify us at once at the contact address below if you suspect unauthorized access.</li>
+</ul>
+<p>You are responsible for everything done under your Agency's accounts, including by your Authorized Users. We may suspend an account that appears to be compromised to protect your data.</p>
+<div class="callout">
+  <strong>Security Notice</strong>
+  <p>We will never ask for your password by email or unsolicited message. If you receive a request that looks like it comes from us, do not respond, and tell us.</p>
+</div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s7">
+      <p class="section-num">07</p>
+      <h2>Acceptable Use</h2>
+      <p>You may use the Service only for your Agency's lawful business purposes. You agree <strong>not</strong> to:</p>
+<ul>
+  <li>Use the Service for any unlawful, fraudulent, or harmful purpose, or in a way that violates anyone's rights;</li>
+  <li>Upload content you have no right to upload, or malicious code of any kind;</li>
+  <li>Try to access other accounts, systems, or data, or probe, test, or bypass the Service's security without our written permission;</li>
+  <li>Copy, reverse engineer, decompile, or create derivative works of the Service, except where the law allows;</li>
+  <li>Use bots, scrapers, or automated tools to access the Service other than features we provide;</li>
+  <li>Disrupt, overload, or interfere with the Service or its infrastructure;</li>
+  <li>Impersonate any person or misrepresent your affiliation;</li>
+  <li>Resell, sublicense, or share access with anyone outside your Agency;</li>
+  <li>Use the Service to build a competing product or to benchmark it for a competitor without our written consent.</li>
+</ul>
+<p>We may suspend access immediately if needed to stop misuse or protect the Service, other customers, or your data, and we will tell you why where we can.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s8">
+      <p class="section-num">08</p>
+      <h2>Your Data</h2>
+      <p><strong>Ownership.</strong> You own your Agency Data. We do not claim ownership of it.</p>
+<p><strong>Limited permission.</strong> You give us a limited, non-exclusive permission to host, copy, process, and transmit Agency Data only as needed to provide, secure, and support the Service for you, including sending it to Providers as described in the Privacy Policy, and as the law requires. <strong>We do not sell Agency Data, we do not use it for advertising, and we do not use it to train AI models.</strong></p>
+<p><strong>Aggregated statistics.</strong> We may use counts and technical statistics about how the Service is used (for example, number of uploads) that do not identify you or your clients.</p>
+<p><strong>Your responsibilities.</strong> You confirm that you have all rights, notices, and consents needed to upload Agency Data and to have us process it. You are responsible for your own legal and regulatory duties to your clients, including privacy notices, consent, insurance licensing, and any data security or vendor oversight rules that apply to your Agency. You should upload only the documents you need for your business.</p>
+<p><strong>Sensitive information.</strong> The Service is not designed to handle protected health information under HIPAA. Do not upload it unless we have signed a business associate agreement with you. Do not upload full payment card numbers, medical records, or bank account login details. The Service's masking of sensitive numbers (see <a href="#s10">Section 10</a>) is a safeguard, not a guarantee.</p>
+<p><strong>Retention.</strong> By default, the stored original file is deleted automatically 30 days after a document is filed. Documents waiting for review keep their original until filed. The extracted details and searchable text stay in your account until you delete them or your account ends. The Agency can adjust the retention setting.</p>
+<p><strong>Export and deletion.</strong> You can export your data at any time while your account is active, and you can ask us to delete it. What happens after the agreement ends is in <a href="#s18">Section 18</a>.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s9">
+      <p class="section-num">09</p>
+      <h2>AI Output Must Be Checked</h2>
+      <div class="callout">
+  <strong>Important</strong>
+  <p>AI can be wrong. Review extracted details and answers before you rely on them.</p>
+</div>
+<p>The Service uses artificial intelligence to read and summarize documents. AI Output may misread a scan, miss or invent a detail, file a document under the wrong client, or give an incorrect answer. You and your staff must review AI Output before relying on it, especially for coverage, dates, deadlines, and communications with clients or carriers.</p>
+<p>The Service is a tool to help your team. It does not provide insurance, legal, tax, or compliance advice, it is not a substitute for your professional judgment or your obligations, and we are not responsible for decisions you make based on AI Output.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s10">
+      <p class="section-num">10</p>
+      <h2>Privacy, Security, and Providers</h2>
+      <p>Our <a href="privacy.html">Privacy Policy</a> explains what we collect and how we use it, including which Providers handle data (such as Google for AI processing, Stripe for payments, and our hosting provider) and what each can see. In particular, scans and photos are sent to an AI provider as images for text transcription, which happens before sensitive numbers can be masked. After transcription, recognized patterns such as Social Security, payment card, and driver's license numbers are masked in the text sent for classification, search, and answers, which is a safeguard and not a guarantee.</p>
+<p>We use reasonable safeguards to protect Agency Data, including a separate installation and database for each Agency, encryption of sensitive fields and backups, access controls, two-factor authentication, session timeouts, and an audit log of account activity. No method of storage or transmission is completely secure, and we cannot guarantee absolute security.</p>
+<p>If we confirm a security incident that affects your Agency Data, we will tell the Agency owner without undue delay, and within 72 hours of confirming it with what we know and what we are doing. Your Agency may have its own legal duties to notify clients or regulators.</p>
+<p>We may change Providers. We will tell you in advance of any change that adds a new company that handles Agency Data.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s11">
+      <p class="section-num">11</p>
+      <h2>Confidentiality</h2>
+      <p>Each party will protect the other's non-public business information that it receives in connection with the Service, use it only to carry out these Terms, and not disclose it except to its employees, contractors, and Providers who need it and are bound to protect it, or when the law requires (in which case the receiving party will give notice where allowed). Agency Data is your confidential information. These duties continue after the agreement ends for 3 years, for trade secrets for as long as they remain trade secrets, and for Agency Data for as long as we hold it. This section does not cover information that is public through no fault of the receiving party, was already known to it, or was developed independently.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s12">
+      <p class="section-num">12</p>
+      <h2>Availability, Support, and Backups</h2>
+      <p>We aim to keep the Service available, but it is an early product and we do not guarantee that it will be uninterrupted or error-free. We may take it down briefly for maintenance or updates. No service level commitment applies unless it is stated in an order form that we both sign.</p>
+<p>Support is by email at the address below, during business hours, on a best-effort basis. We take regular backups of the Service, but you should keep your own copies of anything essential, and you can export your data at any time.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s13">
+      <p class="section-num">13</p>
+      <h2>Intellectual Property</h2>
+      <p>The Service, including its software, design, text, graphics, and name, belongs to the Company and its licensors and is protected by law. During your subscription we grant the Agency a limited, non-exclusive, non-transferable, revocable right to use the Service for its own internal business purposes, subject to these Terms. This does not give you any ownership of the Service or the right to use our name, logos, or trademarks without written permission.</p>
+<p>If you give us feedback or suggestions, we may use them without restriction or payment. This does not give us any rights in your Agency Data.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s14">
+      <p class="section-num">14</p>
+      <h2>Disclaimers</h2>
+      <p><strong>TO THE FULLEST EXTENT THE LAW ALLOWS, THE SERVICE AND ALL AI OUTPUT ARE PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED.</strong> We disclaim all warranties, including implied warranties of merchantability, fitness for a particular purpose, accuracy, and non-infringement, and any warranty that the Service will be uninterrupted, error-free, or free of harmful components, or that it will meet your requirements or produce any particular result.</p>
+<p>Some places do not allow certain disclaimers, so some of these may not apply to you, and the rest apply to the fullest extent the law permits.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s15">
+      <p class="section-num">15</p>
+      <h2>Limitation of Liability</h2>
+      <p><strong>TO THE FULLEST EXTENT THE LAW ALLOWS, NEITHER PARTY WILL BE LIABLE TO THE OTHER FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOST PROFITS, REVENUE, GOODWILL, OR BUSINESS OPPORTUNITY,</strong> however caused and on any legal theory, even if advised of the possibility.</p>
+<p><strong>EACH PARTY'S TOTAL LIABILITY ARISING OUT OF OR RELATED TO THE SERVICE OR THESE TERMS WILL NOT EXCEED THE GREATER OF (A) THE FEES THE AGENCY PAID US IN THE 12 MONTHS BEFORE THE EVENT THAT GAVE RISE TO THE CLAIM, OR (B) $100 U.S. DOLLARS.</strong></p>
+<p>Nothing in these Terms limits liability that cannot be limited by law, such as liability for fraud or willful misconduct. The Agency's payment obligations and its indemnity obligations in <a href="#s16">Section 16</a> are not reduced by this section. The parties agree that these limits are a fair allocation of risk and that our fees reflect it.</p>
+</section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s16">
+      <p class="section-num">16</p>
+      <h2>Indemnification</h2>
+      <p>You will defend us against, and pay the damages and costs finally awarded or agreed in settlement of, any third-party claim arising from (a) Agency Data, including a claim that you did not have the right or the consent to upload it; (b) your violation of these Terms or applicable law; or (c) your failure to meet your own obligations to your clients, regulators, or carriers. This does not apply to the extent the claim is caused by our breach of these Terms, our negligence, or our willful misconduct.</p>
+<p>We will notify you promptly of any claim and let you control the defense with counsel reasonably acceptable to us, and we will cooperate at your cost. You may not settle a claim in a way that admits fault by us or imposes obligations on us without our written consent.</p>
+</section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s17">
+      <p class="section-num">17</p>
+      <h2>Dispute Resolution</h2>
+      <p><strong>Informal resolution first.</strong> Before filing any claim, each party will give the other written notice describing the dispute and try in good faith to resolve it for at least 30 days.</p>
+<p><strong>Courts.</strong> If the dispute is not resolved, it will be decided in the state or federal courts located in Bristol County, Massachusetts, as stated in <a href="#s19">Section 19</a>, and each party consents to those courts. Either party may ask any court for urgent relief, such as an injunction, to protect confidential information or intellectual property.</p>
+</section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s18">
+      <p class="section-num">18</p>
+      <h2>Termination</h2>
+      <p><strong>By you.</strong> You may cancel at any time as described in <a href="#s5">Section 5</a>.</p>
+<p><strong>By us for cause.</strong> We may suspend or terminate access if you materially breach these Terms or do not pay, after written notice and 10 days to fix it. We may suspend immediately, without waiting, to stop illegal activity, misuse, or a security threat.</p>
+<p><strong>By us for convenience or if we end the Service.</strong> We may end the Service or your access for any other reason on at least 30 days' written notice, and we will refund prepaid fees for the period after it ends.</p>
+<p><strong>What happens next.</strong></p>
+<ul>
+  <li>Your right to use the Service ends when your access ends;</li>
+  <li>You will have 30 days after your access ends to export Agency Data, and we will help with reasonable requests;</li>
+  <li>After that, we will delete the Agency's installation and Agency Data within 30 days, and we will confirm the deletion if you ask;</li>
+  <li>Copies in encrypted backups are deleted as the backups expire, within about 35 days;</li>
+  <li>We may keep billing, tax, and security records for up to 7 years, or longer if the law requires; the audit log for an Agency is deleted along with that Agency's installation;</li>
+  <li>Sections that by their nature should continue after termination do so, including ownership, confidentiality, payment obligations, disclaimers, limits of liability, indemnification, and dispute resolution.</li>
+</ul>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s19">
+      <p class="section-num">19</p>
+      <h2>Governing Law</h2>
+      <p>These Terms and any dispute relating to them or the Service are governed by the laws of the Commonwealth of Massachusetts, without regard to its conflict-of-law rules. Subject to <a href="#s17">Section 17</a>, the state and federal courts located in Bristol County, Massachusetts have exclusive jurisdiction, and each party waives any objection to that venue. The United Nations Convention on Contracts for the International Sale of Goods does not apply.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s20">
+      <p class="section-num">20</p>
+      <h2>Changes to These Terms</h2>
+      <p>We may update these Terms. For material changes, we will give at least <strong>30 days' notice</strong> by email to the account owner, a prominent notice on the Service, or an in-app message. If you keep using the Service after the changes take effect, you accept them. If you do not agree, you may cancel before they take effect, and a cancellation made for that reason will end at the end of your paid period as usual. Changes to prices follow <a href="#s5">Section 5</a>.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s21">
+      <p class="section-num">21</p>
+      <h2>General Terms</h2>
+      <p><strong>Entire agreement.</strong> These Terms, the Privacy Policy, and any order form we both sign are the whole agreement between us about the Service and replace earlier discussions. If they conflict, the order form comes first, then these Terms, then the Privacy Policy.</p>
+<p><strong>Severability.</strong> If a part of these Terms cannot be enforced, it will be limited to the extent needed and the rest stays in effect.</p>
+<p><strong>No waiver.</strong> Not enforcing a right is not a waiver of it. A waiver must be in writing.</p>
+<p><strong>Assignment.</strong> You may not assign these Terms without our written consent. We may assign them to an affiliate or in a merger, acquisition, or sale of the business.</p>
+<p><strong>No third-party beneficiaries.</strong> These Terms are for the two parties only. Your clients and others have no rights under them.</p>
+<p><strong>Independent parties.</strong> We are independent contractors. These Terms do not create a partnership, agency, or employment relationship.</p>
+<p><strong>Force majeure.</strong> Neither party is liable for a delay or failure caused by events beyond its reasonable control, such as natural disasters, war, labor disputes, government actions, or failures of internet or utility providers. This does not excuse payment obligations.</p>
+<p><strong>Notices.</strong> We may send notices to the owner email on your account or post them in the Service. Notices to us must go to the contact details below.</p>
+<p><strong>Electronic communications and signatures.</strong> You agree to receive notices and agreements electronically, and that clicking to accept or paying is a valid electronic signature.</p>
+<p><strong>Export control.</strong> You will not use the Service in any country or by any person subject to a U.S. embargo or on a U.S. government restricted-party list.</p>
+<p><strong>Headings.</strong> Headings are for convenience only.</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="s22">
+      <p class="section-num">22</p>
+      <h2>Contact Us</h2>
+      <p>For questions about these Terms, to report a security concern, or to send a legal notice, contact us:</p>
+<div class="contact-card">
+  <h3>Legal &amp; Support Contact</h3>
+  <dl class="contact-row">
+    <dt>Company</dt><dd>NexoraAI LLC</dd>
+    <dt>Email</dt><dd><a href="mailto:customersupport@desktask.co">customersupport@desktask.co</a></dd>
+    <dt>Mailing Address</dt><dd>285 Old Westport Road, North Dartmouth, MA 02747</dd>
+  </dl>
+</div>
+<p style="margin-top:20px; font-size:13px; color:var(--fg-muted);">We aim to reply within 5 business days. For something urgent, put "URGENT" in the subject line.</p>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    <span>&copy; 2026 NexoraAI LLC. All rights reserved.</span>
+    <span>Terms of Service &middot; Version 1.0 &middot; <a href="privacy.html">Privacy Policy</a> &middot; DeskTask is a product of NexoraAI</span>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('.toc-list a');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.section[id]'));
+  if (!links.length || !sections.length || !('IntersectionObserver' in window)) return;
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        var active = document.querySelector('.toc-list a[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  sections.forEach(function (s) { obs.observe(s); });
+})();
+</script>
+</body>
+</html>

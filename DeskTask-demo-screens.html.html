@@ -1,0 +1,452 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Deskfile Demo Screens</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one app shell, a quiet sidebar-less top nav, white cards on a pale green ground. Accent is a single deep green; yellow marks highlights only. */
+:root{--bg:#F0F4EF;--panel:#fff;--ink:#16241C;--muted:#56655C;--line:#CBD6CC;--accent:#1F6B4A;--accent-ink:#fff;--mark:#F3D46B;--mark-ink:#16241C;--warn-bg:#FFF1D6;--warn-ink:#6B4A00;--bad:#A3321F;--bad-bg:#FBE4DF;
+--display:"Bricolage Grotesque","Trebuchet MS",sans-serif;--body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1813;--panel:#16241C;--ink:#E5EEE7;--muted:#9DB0A3;--line:#2A3D32;--accent:#5CC08F;--accent-ink:#0E1813;--mark:#C9A63C;--mark-ink:#16241C;--warn-bg:#3A2E10;--warn-ink:#F3D98F;--bad:#F29C8B;--bad-bg:#3D1C16;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1813;--panel:#16241C;--ink:#E5EEE7;--muted:#9DB0A3;--line:#2A3D32;--accent:#5CC08F;--accent-ink:#0E1813;--mark:#C9A63C;--mark-ink:#16241C;--warn-bg:#3A2E10;--warn-ink:#F3D98F;--bad:#F29C8B;--bad-bg:#3D1C16;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body)}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.015em}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800}h2{font-size:1.35rem;font-weight:800;margin:30px 0 12px}h3{font-size:1.1rem;font-weight:600}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+a{color:var(--accent)}
+.demo{background:var(--mark);color:var(--mark-ink);font-size:.9rem;font-weight:600;text-align:center;padding:6px 16px}
+nav{background:var(--panel);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;padding-top:10px;padding-bottom:10px}
+.brand{font:800 1.3rem var(--display);margin-right:12px}.brand span{background:linear-gradient(transparent 58%,var(--mark) 58%)}
+nav button{background:none;border:0;font:600 1rem var(--body);color:var(--muted);padding:10px 12px;border-radius:8px;cursor:pointer;min-height:44px}
+nav button[aria-current=page]{color:var(--accent-ink);background:var(--accent)}
+.badge{background:var(--mark);color:var(--mark-ink);border-radius:99px;padding:0 8px;font-size:.85rem;margin-left:4px}
+.role{margin-left:auto;font-size:.9rem;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+main{padding:28px 0 60px}.sub{color:var(--muted);margin:6px 0 0}
+.counts{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:22px}
+.count{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:16px;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.count:hover{border-color:var(--accent)}.count b{display:block;font:800 2.5rem/1 var(--display)}.count span{color:var(--muted);font-size:.95rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:12px;min-width:0}
+.list{list-style:none;margin:0;padding:0}.list li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;padding:12px 0;border-bottom:1px dashed var(--line)}.list li:last-child{border:0}
+.link{color:var(--accent);font-weight:600;cursor:pointer;background:none;border:0;font:inherit;font-weight:600;padding:0;text-decoration:underline}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 14px;border-radius:99px;font:600 .95rem var(--body);cursor:pointer;min-height:40px}.tabs button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn{background:var(--accent);color:var(--accent-ink);border:2px solid var(--accent);font:600 1rem var(--body);padding:12px 20px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-block;min-height:44px}.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.sm{padding:8px 14px;font-size:.92rem;min-height:40px}
+.btn.big{padding:16px 24px;font-size:1.1rem}
+.chip{display:inline-block;border-radius:99px;padding:2px 10px;font-size:.88rem;font-weight:600;background:var(--line);color:var(--ink)}.chip.ok{background:var(--accent);color:var(--accent-ink)}.chip.warn{background:var(--warn-bg);color:var(--warn-ink)}.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.check{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 0;border-bottom:1px dashed var(--line)}.check:last-child{border:0}
+.tick{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;flex:none;background:var(--accent);color:var(--accent-ink)}.tick.no{background:var(--bad-bg);color:var(--bad);border:2px solid var(--bad)}
+.check .act{display:flex;gap:14px;align-items:center;margin-left:auto;font-size:.95rem}.check label,label.inl{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent);flex:none}
+.note{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:12px 14px;font-size:.95rem;margin:12px 0}.note.good{background:var(--accent);color:var(--accent-ink)}.note.err{background:var(--bad-bg);color:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-weight:600}.scroll{overflow-x:auto}
+input[type=text],input[type=password],input[type=email],input[type=file],input[type=number],input[type=url],input[type=search],select.f{font:inherit;padding:12px;border:1px solid var(--muted);border-radius:10px;background:var(--panel);color:var(--ink);width:100%;max-width:520px;min-height:46px}
+input[type=range]{width:100%;max-width:320px;accent-color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.row>input{flex:1;min-width:180px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:.86rem/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;margin:8px 0;color:var(--muted)}
+.cands{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.cands button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer;min-height:44px}.cands button[aria-pressed=true]{border:2px solid var(--accent);background:var(--mark);color:var(--mark-ink)}
+.back{margin-bottom:14px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:10px}
+.hero2{padding:28px 0 40px;display:grid;gap:32px}.hero2 .lead{font-size:1.2rem;color:var(--muted);max-width:56ch;margin:18px 0 26px}
+.land h2{margin-top:52px}.fine{font-size:.88rem;color:var(--muted);margin-top:10px}
+.grid3{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.tile p{margin:6px 0 0;color:var(--muted);font-size:.97rem}
+.step{border-top:4px solid var(--accent);background:var(--panel);padding:16px 18px;border-radius:0 0 12px 12px}.step p{margin:6px 0 0;color:var(--muted);font-size:.97rem}
+.pilot{background:var(--panel);border:2px solid var(--accent);border-radius:14px;padding:22px}
+.roi{display:grid;gap:18px}.roi .f2{margin-bottom:12px}.roi label{display:block;font-weight:600;margin-bottom:4px}.roi input{max-width:220px}.hint{font-weight:400;color:var(--muted);font-size:.85rem}
+.out{background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:22px;align-self:start}.out b.big2{display:block;font:800 2.6rem/1 var(--display)}
+.out dl{margin:14px 0 0;display:grid;grid-template-columns:1fr auto;gap:6px 14px}.out dt{opacity:.9}.out dd{margin:0;font-weight:600;text-align:right}
+.plans{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}.plan{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}.plan.feat{border:2px solid var(--accent)}.plan .price{font:800 2rem var(--display)}.plan .price small{font:400 .95rem var(--body);color:var(--muted)}.plan ul{margin:8px 0 0;padding-left:1.1rem;color:var(--muted);font-size:.95rem}
+.cta2{background:var(--accent);color:var(--accent-ink);border-radius:18px;padding:34px 24px;margin:52px 0 20px}.cta2 .btn{background:var(--accent-ink);color:var(--accent);border-color:var(--accent-ink)}
+details.faq{border-bottom:1px solid var(--line);padding:14px 0}details.faq summary{cursor:pointer;font-weight:600}details.faq p{margin:8px 0 0;color:var(--muted)}
+dl.fields{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:4px 14px;margin:8px 0;font-size:.95rem}dl.fields dt{color:var(--muted)}dl.fields dd{margin:0;overflow-wrap:anywhere}
+.docbox{border-top:1px solid var(--line);padding:6px 0}.docbox summary{cursor:pointer;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:8px 0;min-height:44px}.docbox summary .nm{font-weight:600}
+.prev{background:#fff;color:#444;border:1px solid var(--line);border-radius:6px;padding:20px;max-width:340px;margin:10px 0;font:.8rem/1.6 ui-monospace,Menlo,monospace}.prev i{display:block;height:8px;background:#d9d9d9;border-radius:3px;margin:8px 0}.prev i.s{width:60%}.prev b{display:block;margin-bottom:8px;letter-spacing:.06em;color:#222}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.hash{font:.75rem ui-monospace,Menlo,monospace;color:var(--muted)}
+@media(min-width:800px){.hero2{grid-template-columns:1.3fr .7fr;align-items:center}.roi{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+<div class="demo">Demo screens with made-up data. Nothing here is a real customer, quote or result.</div>
+<nav><div class="wrap">
+  <div class="brand"><span>Deskfile</span></div>
+  <button data-v="today">Today</button><button data-v="clients">Clients</button><button data-v="ask">Ask</button><button data-v="search">Search</button><button data-v="review">Review <span class="badge" id="rb"></span></button><button data-v="upload">Upload</button><button data-v="admin" id="adm" hidden>Admin</button>
+  <span class="role" id="who"></span>
+</div></nav>
+<main><div class="wrap" id="app" aria-live="polite"></div></main>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const fmtD=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})};
+const money=n=>(n<0?'-$':'$')+Math.round(Math.abs(n)).toLocaleString('en-US');
+function h53(str){let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(16).padStart(14,'0')}
+const DEFPAT='{client} - {type} - {date}';
+function mk(){const a=[];for(let i=0;i<8;i++)a.push(Math.random().toString(36).slice(2,6)+'-'+Math.random().toString(36).slice(2,6));return a}
+const PLANS=[{n:'Starter',p:500,cap:400,prof:5},{n:'Standard',p:750,cap:700,prof:10},{n:'Plus',p:950,cap:1200,prof:15}];
+const S={view:'today',cid:null,win:90,page:'landing',user:null,pending:null,lrole:'admin',planN:'Standard',pstate:'trial',used:37,trialDay:2,resetIn:19,portal:'https://portal.example-agency.com/upload',origDays:30,threshold:80,pattern:DEFPAT,keepOrig:true,requireMfa:false,remindEvery:7,remindMax:1,
+seen:new Set(),open:{},prev:{},sq:'',onlyNew:false,tamper:false,verified:null,flash:null,csv:null,zip:null,
+users:[{name:'Dana Reyes',email:'dana@agency.example',pw:'owner-demo-1234',role:'admin',mfa:true,backup:mk(),all:true,ids:[]},{name:'Sam Ortiz',email:'sam@agency.example',pw:'staff-demo-1234',role:'staff',mfa:false,backup:[],all:false,ids:['alvarez','okafor']},{name:'Priya Nair',email:'priya@agency.example',pw:'staff-demo-1234',role:'staff',mfa:false,backup:[],all:true,ids:[]}],
+clients:{
+ alvarez:{name:'Alvarez, M.',email:'m.alvarez@example.com',pol:['Auto'],days:18,req:["Driver's license","Proof of prior insurance","Vehicle registration"],skip:{},keep:{},sentN:0,links:[],docs:[{t:"Driver's license",rd:-7,s:'Filed',c:97,src:'staff',fn:'scan_0043.pdf',moved:false,f:{name:'Maria Alvarez',state:'MA',expiration_date:iso(900),license_number:'masked before any AI call'}}],qa:[]},
+ okafor:{name:'Okafor, T.',email:'t.okafor@example.com',pol:['Homeowners'],days:47,req:["Prior declarations page","Photo ID","Roof inspection"],skip:{},keep:{},sentN:0,links:[],docs:[
+  {t:'Prior declarations page',rd:-6,s:'Filed',c:94,src:'staff',fn:'Declarations.pdf',moved:false,f:{policy_number:'HO-4418207',carrier:'Northern Mutual',effective_date:iso(-318),expiration_date:iso(47),dwelling_limit:'$412,000',liability_limit:'$300,000',deductible:'$1,000'}},
+  {t:'Photo ID',rd:-25,s:'Filed',c:99,src:'client upload',fn:'photo id.jpg',moved:true,f:{name:'Tunde Okafor',state:'MA'}},
+  {t:'Roof inspection',rd:-25,s:'Filed',c:91,src:'email',fn:'roof_report.pdf',moved:true,f:{inspector:'R. Chan',condition:'good',inspected:iso(-40)}}],
+  qa:[{k:'deductible',a:'The all-other-perils deductible is $1,000.',src:'Declarations page, page 2'},{k:'liability',a:'Personal liability is $300,000.',src:'Declarations page, page 1'},{k:'roof',a:'The roof was inspected and rated good condition.',src:'Roof inspection, page 1'}]},
+ harbor:{name:'Harbor Bakery LLC',email:'office@harborbakery.example',pol:["Workers' comp","General liability"],days:74,req:['Payroll summary','Certificate of insurance','Loss runs'],skip:{},keep:{},sentN:0,links:[],docs:[{t:'Payroll summary',rd:-6,s:'Filed',c:88,src:'staff',fn:'Payroll Q3.pdf',moved:false,f:{period:'Q3 2026',gross_payroll:'$186,400',class_code:'2003',employees:7}}],qa:[]},
+ dunn:{name:'Dunn Plumbing',email:'jim@dunnplumbing.example',pol:['Commercial package','Commercial auto'],days:26,req:['Loss runs','Certificate of insurance','Driver list'],skip:{},keep:{},sentN:0,links:[],docs:[
+  {t:'Loss runs',rd:-6,s:'Needs review',c:61,src:'email',fn:'loss runs final FINAL.pdf',moved:false,f:{valued_as:iso(-50),total_claims:2}},
+  {t:'Certificate of insurance',rd:-48,s:'Filed',c:96,src:'staff',fn:'COI.pdf',moved:true,f:{policy_number:'CP-90314',carrier:'Granite State',expiration_date:iso(26),general_liability:'$1,000,000 per occurrence'}},
+  {t:'Driver list',rd:-48,s:'Filed',c:93,src:'client upload',fn:'drivers.pdf',moved:false,f:{drivers:4}}],
+  qa:[{k:'limit',a:'The general liability limit is $1,000,000 per occurrence.',src:'Certificate of insurance, page 1'}]}
+},
+queue:[
+ {id:1,file:'IMG_2291.jpg',type:'Payroll summary',guess:'harbor',conf:72,alts:['dunn','alvarez'],text:'HARBOR BAKERY LLC  Payroll summary, quarter ending 9/30. Total gross wages $48,210. Employees: 7.'},
+ {id:2,file:'scan_0044.pdf',type:"Driver's license",guess:'okafor',conf:58,alts:['alvarez','harbor'],text:'Massachusetts license. Name partly cut off: "..AFOR, T". Photo page only.'},
+ {id:3,file:'document(7).pdf',type:'Unreadable',guess:null,conf:0,alts:[],text:''}
+],
+notes:[{m:'Dunn Plumbing emailed loss runs final FINAL.pdf. It is waiting in review.',t:'Today 8:55 AM',r:false},{m:'Okafor, T. uploaded photo id.jpg through a client link.',t:'Sep 12',r:true}],
+chain:[],agency:'Example Agency',autoFile:true,linkDays:7,linkMax:10,smtp:{host:'smtp.example-agency.com',port:'587',user:'reminders@example-agency.com',from:'Example Agency <reminders@example-agency.com>'},imap:{host:'imap.example-agency.com',user:'documents@example-agency.com',folder:'INBOX'},senders:'dana@agency.example, sam@agency.example',deep:false};
+Object.values(S.clients).forEach(c=>c.contacts=[c.email]);
+function addLog(m,t){const prev=S.chain.length?S.chain[S.chain.length-1].h:'genesis';t=t||'Just now';S.chain.push({t,m,h:h53(prev+'|'+t+'|'+m),m0:m})}
+[['Yesterday 2:05 PM','Filed Payroll Q3.pdf to Harbor Bakery LLC (88% sure)'],['Yesterday 4:30 PM','Sent to review: loss runs final FINAL.pdf (61% sure)'],['Today 9:12 AM','Filed Declarations.pdf to Okafor, T. as Prior declarations page (94% sure)'],['Today 9:41 AM',"Filed scan_0043.pdf to Alvarez, M. as Driver's license (97% sure)"]].forEach(x=>addLog(x[1],x[0]));
+const log=m=>addLog(m);
+const roleL=r=>r==='admin'?'Owner':'Staff';
+const curPlan=()=>PLANS.find(p=>p.n===S.planN);
+const profCap=()=>curPlan().prof;
+const BLOCKED=['full','trial_ended','canceled'];
+function planInfo(){const p=curPlan(),tr=S.pstate==='trial',cap=tr?100:p.cap,used=S.used,left=Math.max(cap-used,0),daysLeft=Math.max(7-S.trialDay,0);
+ let state='ok',msg='';
+ if(S.pstate==='canceled'){state='canceled';msg="This account's plan is not active, so uploading is off. Your documents are still here and can be exported. Contact us to reactivate."}
+ else if(tr&&S.trialDay>=7){state='trial_ended';msg='Your free trial has ended. Ask your owner to start your plan to keep uploading. Your documents are still here and can be exported.'}
+ else if(used>=cap){state='full';msg=tr?`You've used all ${cap} trial uploads. Ask your owner to start your plan to keep uploading. Your documents are still here and can be exported.`:`No uploads left this month. Uploading is paused until ${fmtD(S.resetIn)}. Ask your owner about a bigger plan.`}
+ else if(used>=cap*.8){state='low';msg=`Running low: ${left} upload${left==1?'':'s'} left.`}
+ return{p,tr,cap,used,left,state,msg,daysLeft}}
+function bannerHtml(){const i=planInfo();let h='';
+ if(BLOCKED.includes(i.state))h=`<div class="note err">${esc(i.msg)}</div>`;
+ else if(i.tr)h=`<div class="note ${i.state==='low'||i.daysLeft<=2?'':'good'}">Free trial: ${i.daysLeft} day${i.daysLeft==1?'':'s'} left, ${i.used} of ${i.cap} uploads used.</div>`;
+ else if(i.state==='low')h=`<div class="note">${esc(i.msg)} Resets ${fmtD(S.resetIn)}.</div>`;
+ return `<div id="bn">${h}</div>`}
+function usage(){const i=planInfo();if(i.state==='canceled')return '<div id="usg"></div>';const pct=Math.min(i.used/i.cap*100,100),bad=i.state!=='ok'&&i.state!=='low'||i.state==='low';
+ return `<div id="usg"><div class="card"><div class="head"><h3>Uploads left ${i.tr?'in your free trial':'this month'}</h3><span class="chip">${i.tr?'Trial':i.p.n+' plan'}</span></div>
+ <p style="margin:10px 0 6px"><b style="font:800 2.2rem/1 var(--display)">${i.left}</b> of ${i.cap} left</p>
+ <div style="height:12px;background:var(--line);border-radius:99px;overflow:hidden" role="img" aria-label="${i.used} of ${i.cap} uploads used"><div style="height:100%;width:${pct}%;background:${bad?'var(--bad)':'var(--accent)'}"></div></div>
+ <p class="sub" style="margin-top:8px">${i.used} used. ${i.tr?'Trial ends '+fmtD(i.daysLeft):'Resets '+fmtD(S.resetIn)}. Files that can't be read, and duplicates, aren't counted.</p></div></div>`}
+function refreshPlanUI(){const b=document.getElementById('bn'),u=document.getElementById('usg');if(b)b.outerHTML=bannerHtml();if(u)u.outerHTML=usage()}
+function setState(k){const m={t1:['trial',2,37],t2:['trial',3,85],t3:['trial',4,100],t4:['trial',7,40],a1:['active',0,212],a2:['active',0,600],a3:['active',0,700],c:['canceled',0,0]}[k];S.pstate=m[0];S.trialDay=m[1];S.used=m[2];draw()}
+const notify=m=>S.notes.unshift({m,t:'Just now',r:false});
+const vis=k=>!S.user||S.user.role==='admin'||S.user.all||S.user.ids.includes(k);
+const vclients=()=>Object.entries(S.clients).filter(([k])=>vis(k));
+const missing=c=>c.req.filter(r=>!c.docs.some(d=>d.t===r)&&!c.skip[r]);
+const toMove=c=>c.docs.filter(d=>d.s==='Filed'&&!d.moved);
+const queueV=()=>S.queue.filter(q=>!q.guess||vis(q.guess));
+const nav=v=>{S.view=v;S.cid=null;S.flash=null;draw()};
+const openC=k=>{S.view='clients';S.cid=k;S.flash=null;draw()};
+// ---- file names, notes, CSV (same rules as the real app) ----
+function applyPattern(p,v){let t=(p||DEFPAT).replace(/\{(\w+)\}/g,(m,k)=>v[k]||'');t=t.replace(/[\\/:*?"<>|\u0000-\u001f]/g,' ');t=t.replace(/(\s*[-_,]\s*){2,}/g,' - ');return t.split(/\s+/).filter(Boolean).join(' ').replace(/^[ .\-_,]+|[ .\-_,]+$/g,'')}
+function descName(c,d){const f=d.f||{},v={client:c.name,type:d.t,date:f.expiration_date||iso(d.rd),received:iso(d.rd),policy_number:f.policy_number||'',carrier:f.carrier||''};
+ let stem=applyPattern(S.pattern,v).slice(0,120)||applyPattern(DEFPAT,v);return stem+(/\.jpe?g$/i.test(d.fn)?'.jpg':/\.png$/i.test(d.fn)?'.png':'.pdf')}
+function noteText(c,d){const det=Object.entries(d.f||{}).map(([k,v])=>k.replace(/_/g,' ')+': '+v).join('; ');return `${d.t} for ${c.name}, received ${iso(d.rd)}.`+(det?' '+det+'.':'')}
+const cell=v=>{v=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+function allRows(){return vclients().flatMap(([,c])=>c.docs.map(d=>({c,d}))).filter(x=>!S.onlyNew||(x.d.s==='Filed'&&!x.d.moved))}
+function csvFor(items){const cols=[];const rows=items.map(({c,d})=>{const r={client:c.name,document:d.fn,type:d.t,status:d.s,confidence:d.c+'%',source:d.src,received:iso(d.rd),'moved to your system':d.moved?'yes':''};Object.entries(d.f||{}).forEach(([k,v])=>{if(!(k in r))r[k.replace(/_/g,' ')]=v});Object.keys(r).forEach(k=>{if(!cols.includes(k))cols.push(k)});return r});
+ return [cols.map(cell).join(',')].concat(rows.map(r=>cols.map(k=>cell(r[k])).join(','))).join('\n')}
+function copyTxt(id,btn){const el=document.getElementById(id),t=el.textContent,sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Press Ctrl+C'};
+ try{navigator.clipboard.writeText(t).then(()=>{btn.textContent='Copied'},sel)}catch(e){sel()}}
+// ---- shell ----
+function draw(){
+ const adm=S.user&&S.user.role==='admin';if(S.view==='admin'&&!adm)S.view='today';
+ document.querySelector('nav').hidden=!S.user;
+ $('#who').innerHTML=S.user?`<span>${esc(S.user.name)} (${roleL(S.user.role)})</span><button class="link" onclick="nav('account')">Account</button><button class="link" onclick="logout()">Sign out</button>`:'';
+ $('#adm').hidden=!adm;const rq=S.user?queueV().length:0;$('#rb').textContent=rq||'';$('#rb').hidden=!rq;
+ document.querySelectorAll('nav [data-v]').forEach(b=>b.setAttribute('aria-current',b.dataset.v===S.view?'page':'false'));
+ const views={today,clients,client,ask:askV,search,review,upload,admin,account};
+ if(S.page==='clientup'){document.querySelector('nav').hidden=true;$('#who').innerHTML='';$('#app').innerHTML=clientUp();return}
+ $('#app').innerHTML=S.user?bannerHtml()+views[S.view==='clients'&&S.cid?'client':S.view]():(S.page==='landing'?landing():login());
+ if(!S.user&&S.page==='landing')calc();
+ if(S.user&&S.view==='admin')patPrev();
+}
+function today(){
+ const cs=vclients(),m=cs.filter(([,c])=>missing(c).length),ren=cs.filter(([,c])=>c.days<=S.win).sort((a,b)=>a[1].days-b[1].days),mv=cs.filter(([,c])=>toMove(c).length);
+ const nMv=mv.reduce((a,[,c])=>a+toMove(c).length,0),cnt=n=>cs.filter(([,c])=>c.days<=n).length,unread=S.notes.filter(n=>!n.r).length;
+ return `<h1>Today</h1><p class="sub">What needs you right now.</p>${S.flash?`<div class="note good">${esc(S.flash)}</div>`:''}
+ <div class="counts">
+  <button class="count" onclick="nav('review')"><b>${queueV().length}</b><span>documents need review</span></button>
+  <button class="count" onclick="document.getElementById('miss').scrollIntoView({behavior:'smooth'})"><b>${m.length}</b><span>clients missing documents</span></button>
+  <button class="count" onclick="document.getElementById('ren').scrollIntoView({behavior:'smooth'})"><b>${ren.length}</b><span>policies expiring in ${S.win} days</span></button>
+  <button class="count" onclick="document.getElementById('mv').scrollIntoView({behavior:'smooth'})"><b>${nMv}</b><span>filed documents to move to your system</span></button>
+  <button class="count" onclick="document.getElementById('nt').scrollIntoView({behavior:'smooth'})"><b>${unread}</b><span>unread notifications</span></button>
+ </div>
+ <h2 id="miss">Clients missing documents</h2><div class="card"><ul class="list">${m.map(([k,c])=>`<li><span><button class="link" onclick="openC('${k}')">${esc(c.name)}</button> missing ${missing(c).length}: ${missing(c).map(esc).join(', ')}</span>${c.sentN?`<span class="chip ok">Reminder ${c.sentN} sent</span>`:`<span class="chip warn">No reminder yet</span>`}</li>`).join('')||'<li>No clients are missing documents.</li>'}</ul></div>
+ <h2 id="mv">Ready to move to your system</h2><div class="card"><ul class="list">${mv.map(([k,c])=>`<li><span><button class="link" onclick="openC('${k}')">${esc(c.name)}</button> ${toMove(c).length} filed, not yet moved</span><span class="sub">Copy the notes or download the ZIP</span></li>`).join('')||'<li>Everything filed has been moved.</li>'}</ul></div>
+ <h2 id="ren">Renewals coming up</h2>
+ <div class="tabs">${[30,60,90].map(n=>`<button aria-pressed="${S.win===n}" onclick="S.win=${n};draw()">${n} days (${cnt(n)})</button>`).join('')}</div>
+ <div class="card"><ul class="list">${ren.map(([k,c])=>`<li><span><button class="link" onclick="openC('${k}')">${esc(c.name)}</button>, ${c.pol.map(esc).join(' and ')}</span><span>${fmtD(c.days)} <span class="chip ${c.days<=30?'bad':'warn'}">${c.days} days</span></span></li>`).join('')||'<li>Nothing expires in this window.</li>'}</ul></div>
+ <h2>Uploads</h2>${usage()}
+ <h2>Recent uploads</h2><div class="card"><ul class="list">${vclients().flatMap(([k,c])=>c.docs.map(d=>({k,c,d}))).sort((a,b)=>b.d.rd-a.d.rd).slice(0,5).map(x=>`<li><span><button class="link" onclick="openC('${x.k}')">${esc(x.c.name)}</button> ${esc(x.d.t)} <span class="sub">${esc(x.d.fn)}</span></span><span class="sub">${esc(x.d.src)} · ${x.d.rd===0?'today':Math.abs(x.d.rd)+' days ago'}</span></li>`).join('')||'<li>No uploads yet.</li>'}</ul></div>
+ <h2>Client reminders</h2><div class="card">${(()=>{const due=vclients().filter(([,c])=>missing(c).filter(r=>c.keep[r]!==false).length&&c.sentN<S.remindMax);return `<p style="margin-top:0">${due.length?`${due.length} client${due.length==1?' is':'s are'} due for a reminder: ${due.map(([,c])=>esc(c.name)).join(', ')}.`:'No reminders are due.'}</p><p class="sub">${S.remindMax<=1?'Each client gets one automatic reminder (you can change this in Admin). You can also send one yourself from the client page.':`Automatic reminders repeat every ${S.remindEvery} days, up to ${S.remindMax} per client.`} The real app sends them on a schedule.</p>${due.length?'<button class="btn" onclick="sendAllRem()">Send these reminders now</button>':''}`})()}</div>
+ <h2 id="nt">Notifications</h2><div class="card"><ul class="list">${S.notes.map(n=>`<li><span>${n.r?'':'<span class="chip warn">New</span> '}${esc(n.m)}</span><span class="sub">${esc(n.t)}</span></li>`).join('')}</ul>${unread?'<button class="btn ghost sm" onclick="S.notes.forEach(n=>n.r=true);draw()">Mark all as read</button>':''}</div>`;
+}
+function addClient(){const n=$('#ac').value.trim();if(!n){$('#ace').innerHTML='<div class="note err">Type a name first.</div>';return}
+ let k=n.toLowerCase().replace(/[^a-z0-9]/g,'');if(!k||S.clients[k]){$('#ace').innerHTML='<div class="note err">A client with that name already exists.</div>';return}
+ S.clients[k]={name:n,email:'',pol:['Auto'],days:120,req:["Driver's license","Proof of prior insurance"],skip:{},keep:{},sentN:0,links:[],docs:[],qa:[],contacts:[]};if(S.user.role==='staff'&&!S.user.all)S.user.ids.push(k);log(S.user.name+' added client '+n);openC(k)}
+function addContact(k){const v=$('#ct').value.trim(),c=S.clients[k];if(!/^\S+@\S+\.\S+$/.test(v)){$('#cte').innerHTML='<div class="note err">That does not look like an email address.</div>';return}
+ if(!c.contacts.includes(v))c.contacts.push(v);if(!c.email)c.email=v;log('Contact added for '+c.name);S.flash='Contact added.';draw()}
+function clients(){return `<h1>Clients</h1><p class="sub">Choose a client to see their checklist and documents.</p>
+ <div class="card" style="margin-top:18px"><ul class="list">${vclients().map(([k,c])=>`<li><span><button class="link" onclick="openC('${k}')">${esc(c.name)}</button> <span class="sub">${c.pol.map(esc).join(', ')}</span></span><span>${missing(c).length?`<span class="chip bad">${missing(c).length} missing</span>`:'<span class="chip ok">Complete</span>'} <span class="sub">Next expiration ${fmtD(c.days)}</span></span></li>`).join('')}</ul></div>
+ <h2>Add a client</h2><div class="card"><div class="row"><input type="text" id="ac" placeholder="New client name" aria-label="New client name"><button class="btn" onclick="addClient()">Add client</button></div><div id="ace"></div></div>
+ ${S.user.role==='staff'&&!S.user.all?'<p class="sub">You can see the clients your owner assigned to you.</p>':''}`}
+function client(){
+ const k=S.cid,c=S.clients[k];if(!c||!vis(k)){S.cid=null;return clients()}
+ const m=missing(c),ask=m.filter(r=>c.keep[r]!==false);
+ const rows=c.req.map(r=>{const got=c.docs.some(d=>d.t===r),sk=c.skip[r],q=r.replace(/'/g,"\\'");
+  return `<div class="check"><span class="tick ${got||sk?'':'no'}" aria-hidden="true">${got||sk?'✓':'!'}</span><span><b>${esc(r)}</b><br><span class="sub">${got?'Received':sk?'Verified by staff':'Missing'}</span></span>
+  ${got||sk?'':`<span class="act"><label><input type="checkbox" ${c.keep[r]===false?'':'checked'} onchange="S.clients.${k}.keep['${q}']=this.checked;draw()"> Ask client</label><button class="link" onclick="S.clients.${k}.skip['${q}']=true;log('Staff marked ${esc(q)} as received for ${esc(c.name)}');draw()">Already have it</button></span>`}</div>`}).join('');
+ const mail=`Subject: A few documents we still need\n\nHello ${c.name.split(',')[0]},\n\nTo finish your ${c.pol[0].toLowerCase()} paperwork we still need:\n${ask.map(r=>'- '+r).join('\n')}\n\nPlease upload them here: ${S.portal}\n\nThank you,\nYour agency`;
+ const mv=toMove(c).length;
+ const docs=c.docs.map((d,i)=>{const key=k+':'+i,nm=descName(c,d),f=Object.entries(d.f||{}),gone=d.s==='Filed'&&-d.rd>S.origDays;
+  return `<details class="docbox" ${S.open[key]?'open':''} ontoggle="S.open['${key}']=this.open"><summary><span class="nm">${esc(d.t)}</span><span class="chip ${d.s==='Filed'?'ok':'warn'}">${esc(d.s)}</span><span class="sub">${d.c}% sure · ${esc(d.src)} · ${iso(d.rd)}</span>${d.s==='Filed'?(d.moved?'<span class="chip">Moved</span>':'<span class="chip warn">Not moved</span>'):''}</summary>
+  <div class="sub">File: ${esc(d.fn)}</div>
+  <p class="sub" style="margin-top:10px">Fields Deskfile read</p><dl class="fields">${f.map(([a,b])=>`<dt>${esc(a.replace(/_/g,' '))}</dt><dd>${esc(b)}</dd>`).join('')||'<dt>None</dt><dd></dd>'}</dl>
+  <p class="sub">Note to paste into your system</p><pre id="n_${k}_${i}">${esc(noteText(c,d))}</pre><button class="btn ghost sm" onclick="copyTxt('n_${k}_${i}',this)">Copy note</button>
+  <div class="seg">${d.s==='Filed'?`<label class="inl"><input type="checkbox" ${d.moved?'checked':''} onchange="S.clients.${k}.docs[${i}].moved=this.checked;log('${esc(S.user.name)} marked ${esc(d.fn)} as '+(this.checked?'moved to':'not moved to')+' the agency system');draw()"> Moved to our system</label>`:''}
+  ${S.keepOrig&&gone?`<span class="sub">The original was deleted automatically (more than ${S.origDays} days after filing). The fields and text are still here.</span>`:S.keepOrig?`<button class="btn ghost sm" onclick="S.prev['${key}']=!S.prev['${key}'];log('${esc(S.user.name)} previewed ${esc(d.fn)}');draw()">${S.prev[key]?'Hide preview':'Show preview'}</button><button class="btn ghost sm" onclick="S.flash='Would download as: '+descName(S.clients.${k},S.clients.${k}.docs[${i}]);log('${esc(S.user.name)} downloaded the original of ${esc(d.fn)}');draw()">Download original</button>`:'<span class="sub">No original kept for this document.</span>'}</div>
+  ${S.prev[key]&&!gone?`<div class="prev" aria-label="Demo preview of the stored original"><b>${esc(d.t.toUpperCase())}</b><i></i><i></i><i class="s"></i><i></i><i class="s"></i><div>Demo preview. The real app shows the stored page image.</div></div>`:''}
+  </details>`}).join('');
+ return `<button class="link back" onclick="nav('clients')">Back to clients</button>
+ <div class="head"><div><h1>${esc(c.name)}</h1><div class="meta">${c.pol.map(p=>`<span class="chip">${esc(p)}</span>`).join('')}<span class="chip ${c.days<=30?'bad':'warn'}">Next expiration ${fmtD(c.days)}</span></div></div></div>
+ ${S.flash?`<div class="note good">${esc(S.flash)}</div>`:''}
+ <h2>Required documents</h2><div class="card">${rows}
+  ${m.length?`${c.sentInfo?`<div class="note good">Reminder sent on ${esc(c.sentInfo.at)} for: ${c.sentInfo.items.map(esc).join(', ')}. ${S.remindMax<=1?'Deskfile will not email again automatically.':`Deskfile may remind again after ${S.remindEvery} days, up to ${S.remindMax} times.`}</div>`:''}
+  <div class="note">Please check this list against the file. ${ask.length} item${ask.length==1?'':'s'} will be requested from ${esc(c.contacts.join(', ')||'the contacts below')}. The email goes out right away with ${S.portal?'a link to your upload portal':'a private upload link'}.</div>
+  <button class="btn" ${ask.length&&c.contacts.length?'':'disabled'} onclick="sendRem('${k}')">${c.sentN?'Send another reminder':'Confirm missing and email client'}</button>
+  <details style="margin-top:12px"><summary>Preview the email</summary><pre>${esc(mail)}</pre></details>`:`<div class="note good">Everything required is on file. Please verify against the policy.</div>`}
+ </div>
+ <h2>Documents on file</h2><div class="card">${docs||'<p class="sub">Nothing received yet.</p>'}</div>
+ <h2>Contacts</h2><div class="card"><p class="sub" style="margin-top:0">Reminders go to the people listed here. Only add people who agreed to be contacted.</p><ul class="list">${(c.contacts||[]).map(e=>`<li><span>${esc(e)}</span></li>`).join('')||'<li>No contact yet.</li>'}</ul><div class="row" style="margin-top:10px"><input type="email" id="ct" placeholder="Add a contact email" aria-label="Contact email"><button class="btn ghost" onclick="addContact('${k}')">Add contact</button></div><div id="cte"></div></div>
+ <h2>Client upload link</h2><div class="card"><p class="sub" style="margin-top:0">A private link the client opens on any phone. No account needed. It expires and has a file limit.</p>
+  <button class="btn ghost sm" onclick="mkLink('${k}')">Create upload link</button>
+  ${c.links.map((l,i)=>`<div class="check"><span><b>Link ${i+1}</b> <span class="chip ${l.on?'ok':''}">${l.on?'Active':'Revoked'}</span><br><span class="hash">${esc(l.url)}</span><br><span class="sub">Expires ${fmtD(S.linkDays)} · up to ${S.linkMax} files · shown once in the real app</span></span>${l.on?`<span class="act"><button class="link" onclick="S.clients.${k}.links[${i}].on=false;log('Upload link revoked for ${esc(c.name)}');draw()">Revoke</button> <button class="link" onclick="S.clientK='${k}';S.clientL=${i};S.page='clientup';S.cdone=null;draw()">Preview as client</button></span>`:''}</div>`).join('')}</div>
+ <h2>Export this client</h2><div class="card"><div class="seg">
+  <button class="btn ghost sm" onclick="S.csv={k:'${k}',text:csvFor(S.clients.${k}.docs.map(d=>({c:S.clients.${k},d})))};S.zip=null;log('${esc(S.user.name)} exported CSV for ${esc(c.name)}');draw()">Show CSV</button>
+  <button class="btn ghost sm" onclick="mkZip('${k}')">Prepare ZIP of originals</button>
+  ${mv?`<button class="btn ghost sm" onclick="S.clients.${k}.docs.forEach(d=>{if(d.s==='Filed')d.moved=true});log('${esc(S.user.name)} marked all filed documents for ${esc(c.name)} as moved');draw()">Mark all ${mv} filed as moved</button>`:''}</div>
+  ${S.zip&&S.zip.k===k?`<p class="sub">ZIP contents (named by your pattern, plus summary.csv):</p><pre>${S.zip.files.map(esc).join('\n')}</pre>${S.zip.skipped?`<p class="sub">${S.zip.skipped} document${S.zip.skipped==1?' had':'s had'} no original left (deleted automatically). Their fields are in summary.csv.</p>`:''}`:''}
+  ${S.csv&&S.csv.k===k?`<pre id="csvbox">${esc(S.csv.text)}</pre><button class="btn ghost sm" onclick="copyTxt('csvbox',this)">Copy CSV</button>`:''}
+  <p class="sub">The demo shows the contents. The real app downloads the files.</p></div>
+ <h2>Ask about this client</h2><div class="card"><p style="margin:0 0 10px"><label for="qf" class="sub">Which file?</label><br><select id="qf" class="f"><option value="all">All files for this client (${c.docs.length})</option>${c.docs.map((d,i)=>`<option value="${i}">${esc(d.t)}, received ${iso(d.rd)}</option>`).join('')}</select></p><div class="row"><input type="text" id="q" placeholder="For example: what is the deductible?" aria-label="Question" onkeydown="if(event.key==='Enter')ask('${k}')"><button class="btn" onclick="ask('${k}')">Ask</button></div><div id="ans"></div></div>`;
+}
+function mkLink(k){const c=S.clients[k],t=Array.from({length:20},()=>'abcdefghijkmnpqrstuvwxyz23456789'[Math.random()*32|0]).join('');c.links.push({url:S.portal+'?u='+t,on:true});log('Upload link created for '+c.name);draw()}
+function mkZip(k){const c=S.clients[k],used=new Set(),files=[];let skipped=0;c.docs.forEach(d=>{if(d.s==='Filed'&&-d.rd>S.origDays){skipped++;return}let n=descName(c,d),b=n,x=2;while(used.has(n.toLowerCase())){n=b.replace(/(\.\w+)$/,` (${x++})$1`)}used.add(n.toLowerCase());files.push(n)});files.push('summary.csv');S.zip={k,files,skipped};S.csv=null;log(S.user.name+' prepared a ZIP for '+c.name);draw()}
+function clientUp(){const c=S.clients[S.clientK],l=c&&c.links[S.clientL];if(!c||!l)return '<p>This link is no longer valid.</p>';
+ if(BLOCKED.includes(planInfo().state))return `<div class="card" style="max-width:560px;margin:30px auto"><div class="demo" style="margin:-20px -20px 16px;border-radius:12px 12px 0 0">Preview of what your client sees when the agency's plan is out of uploads or inactive.</div><p class="sub" style="margin:0">${esc(S.agency)}</p><h1>Send documents</h1><div class="note">We can't accept documents right now. Please contact your agency.</div><button class="link back" onclick="S.page='app';S.cdone=null;draw()">Back to staff view</button></div>`;
+ const left=S.linkMax-(l.used||0);
+ return `<div class="card" style="max-width:560px;margin:30px auto"><div class="demo" style="margin:-20px -20px 16px;border-radius:12px 12px 0 0">Preview of what your client sees. No sign-in needed.</div><p class="sub" style="margin:0">${esc(S.agency)}</p><h1>Send documents</h1>
+ ${!l.on||left<=0?`<div class="note err">${!l.on?'This link has been turned off. Please contact your agency for a new one.':'This link has reached its file limit. Please contact your agency.'}</div>`:`<p>Hello ${esc(c.name.split(',')[0])}. Your agency still needs: <b>${missing(c).map(esc).join(', ')||'nothing else right now'}</b>.</p>
+ <p><label for="cf"><b>Choose files (PDF, PNG or JPG). You can send up to ${left} more.</b></label><br><input type="file" id="cf" multiple></p><div id="cfe"></div><button class="btn" onclick="clientSend()">Send documents</button>`}
+ ${S.cdone?`<div class="note good" style="margin-top:14px">${esc(S.cdone)}</div>`:''}
+ <p class="sub" style="margin-top:16px">Your files are sent privately to ${esc(S.agency)}. The link expires ${fmtD(S.linkDays)}.</p>
+ <button class="link back" onclick="S.page='app';S.cdone=null;draw()">Back to staff view</button></div>`}
+function clientSend(){const c=S.clients[S.clientK],l=c.links[S.clientL],fs=[...$('#cf').files],left=S.linkMax-(l.used||0);
+ if(planInfo().left<fs.length){$('#cfe').innerHTML="<div class=\"note err\">We can't accept that many files right now. Please contact your agency.</div>";return}
+ if(!fs.length){$('#cfe').innerHTML='<div class="note err">Choose at least one file.</div>';return}
+ if(fs.length>left){$('#cfe').innerHTML=`<div class="note err">You can send ${left} more file${left==1?'':'s'}. Remove some and try again.</div>`;return}
+ fs.forEach(f=>{const n=f.name.toLowerCase(),t=n.includes('licen')?"Driver's license":n.includes('insur')?'Proof of prior insurance':n.includes('regist')?'Vehicle registration':n.includes('loss')?'Loss runs':'Document';
+  if(S.autoFile&&t!=='Document'){c.docs.push({t,rd:0,s:'Filed',c:92,src:'client upload',fn:f.name,moved:false,f:{}});log(`Client upload ${f.name} filed to ${c.name} as ${t} (92% sure)`)}
+  else{S.queue.push({id:Date.now()+Math.random(),file:f.name,type:t==='Document'?'Unknown document':t,guess:S.clientK,conf:70,alts:[],text:'Sent by the client through an upload link.'});log(`Client upload ${f.name} sent to review for ${c.name}`)}});
+ S.used+=fs.length;l.used=(l.used||0)+fs.length;S.notes.unshift({m:`${c.name} uploaded ${fs.length} file${fs.length==1?'':'s'} through a client link.`,t:'Just now',r:false});S.cdone=`Thank you. ${fs.length} file${fs.length==1?' was':'s were'} received.`;draw()}
+const nowStr=()=>new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).replace(',',' at');
+function sendAllRem(){let n=0;vclients().forEach(([k,c])=>{const ask=missing(c).filter(r=>c.keep[r]!==false);if(ask.length&&c.sentN<S.remindMax){c.sentN++;n++;c.sentInfo={at:nowStr(),items:ask};log(`Emailed reminder ${c.sentN} to ${c.name} for ${ask.length} missing document${ask.length==1?'':'s'}`)}});S.flash=n?`Sent ${n} reminder${n==1?'':'s'}.`:'No reminders were due.';draw()}
+function sendRem(k){const c=S.clients[k],ask=missing(c).filter(r=>c.keep[r]!==false);if(!ask.length||!c.contacts.length)return;c.sentN++;c.sentInfo={at:nowStr(),items:ask};log(`Emailed reminder to ${c.name} for ${ask.length} missing document${ask.length==1?'':'s'}`);S.flash=`Reminder sent to ${c.contacts.join(', ')}.`;draw()}
+function ask(k){const c=S.clients[k],q=$('#q').value.toLowerCase().trim(),f=$('#qf').value,doc=f==='all'?null:c.docs[+f];if(!q){$('#ans').innerHTML='<div class="note" style="margin-top:14px">Type a question first.</div>';return}
+ if(!c.docs.length){$('#ans').innerHTML='<div class="note" style="margin-top:14px"><b>There are no files for this client yet.</b> Upload one, then ask again.</div>';return}
+ const hit=c.qa.find(x=>q.includes(x.k)&&(!doc||doc.t.toLowerCase().includes(x.src.split(',')[0].toLowerCase())));
+ $('#ans').innerHTML=hit?`<div class="note good" style="margin-top:14px"><b>${esc(hit.a)}</b><br>Source: ${esc(hit.src)}</div><p class="sub">Always check the cited page before telling the client.</p>`:`<div class="note" style="margin-top:14px"><b>I couldn't find that in ${doc?esc(doc.t):esc(c.name)+"'s documents"}.</b><br>Nothing was guessed.${doc?' Try "All files" or check':' Check'} the policy or ask the carrier.</div>`}
+function sres(q){const res=[];if(q)vclients().forEach(([k,c])=>{if(c.name.toLowerCase().includes(q))res.push({k,c,why:'Client name'});c.docs.forEach(d=>{const hay=[d.t,d.fn,d.s,...Object.values(d.f||{})].join(' ').toLowerCase();if(hay.includes(q))res.push({k,c,why:`${d.t}: ${d.fn}`})});if(S.deep)(c.qa||[]).forEach(x=>{if((x.a+' '+x.src).toLowerCase().includes(q))res.push({k,c,why:'Inside document text: '+x.src})})});return res}
+function search(){const q=S.sq.toLowerCase().trim(),res=sres(q);
+ const all=vclients().flatMap(([,c])=>c.docs.map(d=>({c,d}))).filter(x=>!S.onlyNew||(x.d.s==='Filed'&&!x.d.moved));
+ return `<h1>Search</h1><p class="sub">Search across every client you can see, by name, file, type or field.</p>
+ <div class="card" style="margin-top:18px"><div class="row"><input type="search" id="sq" value="${esc(S.sq)}" placeholder="Try: Northern Mutual, HO-4418, payroll" aria-label="Search" oninput="S.sq=this.value;doSearch()"></div>
+ <label class="inl" style="margin-top:10px"><input type="checkbox" ${S.deep?'checked':''} onchange="S.deep=this.checked;doSearch()"> Also search inside document text (uses AI, a little slower)</label>
+ <div id="sres">${resHtml(res,q)}</div></div>
+ <h2>Export every client as one CSV</h2><div class="card"><label class="inl"><input type="checkbox" ${S.onlyNew?'checked':''} onchange="S.onlyNew=this.checked;S.csv=null;draw()"> Only documents not yet moved to our system</label>
+ <p><button class="btn ghost sm" onclick="S.csv={k:'all',text:csvFor(allRows())};log('${esc(S.user.name)} exported all clients CSV (${all.length} rows)');draw()">Show CSV (${all.length} rows)</button></p>
+ ${S.csv&&S.csv.k==='all'?`<pre id="csvall">${esc(S.csv.text)}</pre><button class="btn ghost sm" onclick="copyTxt('csvall',this)">Copy CSV</button>`:''}</div>`}
+const resHtml=(res,q)=>!q?'<p class="sub">Type to search.</p>':res.length?`<ul class="list">${res.map(r=>`<li><span><button class="link" onclick="openC('${r.k}')">${esc(r.c.name)}</button></span><span class="sub">${esc(r.why)}</span></li>`).join('')}</ul>`:'<p class="sub">No matches by name, file, type or field.</p>';
+function askV(){return `<h1>Ask Deskfile</h1><p class="sub">Ask a question across every client you can see. Answers cite the document they came from.</p>
+ <div class="card" style="margin-top:18px"><div class="row"><input type="text" id="aq" placeholder="What's missing for Alvarez?" aria-label="Question" onkeydown="if(event.key==='Enter')askAll()"><button class="btn" onclick="askAll()">Ask</button></div><div id="aans">${S.aq||''}</div></div>
+ <p class="sub">Demo tip: try "What's missing for Alvarez?", "Who is missing documents?", "What is the deductible for Okafor?" or "What is the limit for Dunn?". The real app answers from the client's own documents with AI.</p>`}
+function askAll(){const q=$('#aq').value.toLowerCase().trim();if(!q)return;const cs=vclients();let h='';
+ const named=cs.filter(([k,c])=>q.includes(c.name.split(/[ ,]/)[0].toLowerCase()));
+ if(/who.*missing|missing documents/.test(q)){const m=cs.filter(([,c])=>missing(c).length);h=`<div class="note good"><b>${m.length} client${m.length==1?'':'s'} missing documents.</b><br>${m.map(([,c])=>esc(c.name)+': '+missing(c).map(esc).join(', ')).join('<br>')}</div>`}
+ else if(q.includes('missing')&&named.length){h=named.map(([k,c])=>`<div class="note good"><b>${esc(c.name)} is missing ${missing(c).length||'nothing'}.</b><br>${missing(c).map(esc).join(', ')||'Everything required is on file.'}</div>`).join('')}
+ else{const pool=named.length?named:cs;for(const [k,c] of pool){const hit=(c.qa||[]).find(x=>q.includes(x.k));if(hit){h=`<div class="note good"><b>${esc(hit.a)}</b><br>Client: ${esc(c.name)} · Source: ${esc(hit.src)}</div><p class="sub">Always check the cited page before telling the client.</p>`;break}}
+  if(!h)h=`<div class="note"><b>I couldn't find that in the documents you can see.</b><br>Nothing was guessed. Check the policy or ask the carrier.</div>`}
+ S.aq=h;log(S.user.name+' asked Deskfile a question');$('#aans').innerHTML=h}
+function doSearch(){const q=S.sq.toLowerCase().trim();$('#sres').innerHTML=resHtml(sres(q),q)}
+function review(){const qs=queueV();
+ return `<h1>Review</h1><p class="sub">Deskfile wasn't sure about these. Check each one and choose where it goes.</p>
+ ${qs.map(q=>{if(!q.guess)return `<div class="card"><div class="head"><h3>${esc(q.file)}</h3><span class="chip bad">Could not read</span></div><p>The scan is too faint or blurry to read. Nothing was guessed.</p><button class="btn" onclick="reqCopy(${q.id})">Request new copy</button></div>`;
+ const all=[q.guess,...q.alts].filter(vis);return `<div class="card"><div class="head"><h3>${esc(q.file)}</h3><span class="chip warn">${q.conf}% sure</span></div>
+ <p>Looks like <b>${esc(q.type)}</b> for <b>${esc(S.clients[q.guess].name)}</b>. Anything under ${S.threshold}% waits here.</p>
+ <p class="sub">${S.keepOrig?`The original is kept encrypted until it is deleted automatically, ${S.origDays} days after filing. This is the text Deskfile read:`:'This is the text Deskfile read:'}</p><pre>${esc(q.text)}</pre>
+ <p class="sub">Other possible clients:</p><div class="cands">${all.map(k=>`<button aria-pressed="${(q.pick||q.guess)===k}" onclick="pick(${q.id},'${k}')">${esc(S.clients[k].name)}</button>`).join('')}</div>
+ <div class="row"><button class="btn big" onclick="fileQ(${q.id})">File here</button><button class="btn big ghost" onclick="newC(${q.id})">New client</button></div></div>`}).join('')||'<div class="note good">Nothing to review. All documents are filed.</div>'}
+ <p class="sub">Original files are encrypted and deleted automatically ${S.origDays} days after filing. The fields and searchable text stay.</p>`}
+function pick(id,k){S.queue.find(q=>q.id===id).pick=k;draw()}
+function fileQ(id){const q=S.queue.find(x=>x.id===id),k=q.pick||q.guess,c=S.clients[k];c.docs.push({t:q.type,rd:0,s:'Filed',c:q.conf,src:'staff',fn:q.file,moved:false,f:{}});S.queue=S.queue.filter(x=>x.id!==id);log(`${S.user.name} filed ${q.file} to ${c.name} as ${q.type}`);draw()}
+function newC(id){const q=S.queue.find(x=>x.id===id);S.newFor=id;S.view='newclient';$('#app').innerHTML=`<button class="link back" onclick="nav('review')">Back to review</button><h1>New client</h1><div class="card" style="margin-top:18px"><label for="ncn"><b>Client name</b></label><br><input type="text" id="ncn" placeholder="Last, First"><p><button class="btn" onclick="mkClient()">Create and file</button></p><div id="nce"></div></div>`}
+function mkClient(){const n=$('#ncn').value.trim();if(!n){$('#nce').innerHTML='<div class="note err">Enter a client name.</div>';return}const q=S.queue.find(x=>x.id===S.newFor),k='n'+q.id;S.clients[k]={name:n,email:'',pol:['Not set'],days:365,req:[],skip:{},keep:{},sentN:0,links:[],docs:[{t:q.type,rd:0,s:'Filed',c:q.conf,src:'staff',fn:q.file,moved:false,f:{}}],qa:[]};if(S.user.role==='staff'&&!S.user.all)S.user.ids.push(k);S.queue=S.queue.filter(x=>x.id!==q.id);log(`${S.user.name} created client ${n} and filed ${q.file}`);nav('clients')}
+function reqCopy(id){const q=S.queue.find(x=>x.id===id);S.queue=S.queue.filter(x=>x.id!==id);log('Asked the client for a clearer copy of '+q.file);notify('Asked the client for a clearer copy of '+q.file);draw()}
+function upload(){const blocked=BLOCKED.includes(planInfo().state);return `<h1>Upload</h1><p class="sub">Add up to 50 files at once. Deskfile tells you exactly what happened to each.</p>
+ <div style="margin-top:18px">${usage()}</div><div class="card"><div class="seg"><label class="inl"><input type="radio" name="um" value="auto" checked> Auto-match to client</label><label class="inl"><input type="radio" name="um" value="sel"> File under selected client</label></div>
+ <p><label for="ucl"><b>Selected client</b></label><br><select class="f" id="ucl">${vclients().map(([k,c])=>`<option value="${k}">${esc(c.name)}</option>`).join('')}</select></p>
+ <input type="file" id="f" multiple aria-label="Choose files"><p style="margin-top:12px"><button class="btn" ${blocked?'disabled':''} onclick="doUp()">Upload and sort</button></p><div id="res"></div></div>
+ <p class="sub">Demo tip: it reads file names. Try "okafor declarations.pdf", "alvarez license.jpg", "blurry.jpg" or "scan_9.pdf". Upload the same file twice to see duplicate detection.</p>`}
+function doUp(){const fs=[...$('#f').files],r=$('#res');if(!fs.length){r.innerHTML='<div class="note err">No file chosen. Pick at least one file first.</div>';return}
+ const p0=planInfo();if(BLOCKED.includes(p0.state)){r.innerHTML=`<div class="note err"><b>No uploads accepted.</b><br>${esc(p0.msg)}</div>`;return}
+ const auto=document.querySelector('input[name=um]:checked').value==='auto',sel=$('#ucl').value,out=[];
+ if(p0.left<Math.min(fs.length,50))out.push(['warn','Only '+p0.left+' upload'+(p0.left==1?'':'s')+' left','The first '+p0.left+' file'+(p0.left==1?'':'s')+' that can be read will be processed and the rest skipped.']);
+ fs.slice(0,50).forEach(f=>{const n=f.name.toLowerCase(),sig=n+'|'+f.size;
+  if(f.size>20*1024*1024){out.push(['bad',f.name,'Too large (over 20 MB). Not uploaded.']);return}
+  if(S.seen.has(sig)){out.push(['warn',f.name,'Duplicate of a file already uploaded. Skipped before any AI cost.']);return}
+  S.seen.add(sig);
+  if(n.includes('blurry')||f.size===0){out.push(['bad',f.name,"Couldn't read it. Please rescan it flat and in good light."]);log('Could not read '+f.name);return}
+  if(BLOCKED.includes(planInfo().state)){S.seen.delete(sig);out.push(['bad',f.name,'Skipped. '+planInfo().msg]);return}
+  S.used++;
+  const hit=auto?vclients().find(([k,c])=>n.includes(k)):[sel,S.clients[sel]];
+  const t=n.includes('decl')?'Prior declarations page':/licen|\bid\b/.test(n)?"Driver's license":n.includes('loss')?'Loss runs':n.includes('payroll')?'Payroll summary':/coi|certif/.test(n)?'Certificate of insurance':'Document';
+  if(hit){hit[1].docs.push({t,rd:0,s:'Filed',c:94,src:'staff',fn:f.name,moved:false,f:{}});log(`Filed ${f.name} to ${hit[1].name} as ${t} (94% sure)`);out.push(['ok',f.name,`Filed to ${hit[1].name} as ${t.toLowerCase()} (94% sure).`])}
+  else{S.queue.push({id:Date.now()+Math.random(),file:f.name,type:t==='Document'?'Unknown document':t,guess:vclients()[0][0],conf:41,alts:vclients().slice(1,4).map(x=>x[0]),text:'Not enough text to match a client.'});log(`Sent ${f.name} to review (41% sure)`);out.push(['warn',f.name,'Not sure where this goes (41%). Sent to the Review list.'])}});
+ if(fs.length>50)out.push(['warn','Extra files','Only the first 50 files are processed per batch.']);
+ r.innerHTML=out.map(o=>`<div class="note ${o[0]==='ok'?'good':o[0]==='bad'?'err':''}"><b>${esc(o[1])}</b><br>${esc(o[2])}</div>`).join('');const rq=queueV().length;$('#rb').textContent=rq||'';$('#rb').hidden=!rq;refreshPlanUI()}
+// ---- admin ----
+function verifyChain(){let prev='genesis';for(let i=0;i<S.chain.length;i++){const e=S.chain[i];if(h53(prev+'|'+e.t+'|'+e.m)!==e.h)return{ok:false,at:i+1};prev=e.h}return{ok:true,n:S.chain.length}}
+function admin(){const n=S.users.length,cap=profCap(),full=n>=cap,v=S.verified,pi=planInfo();
+ const planCard=`<h2>Plan</h2><div class="card">${S.pstate==='trial'?`<p><b>Free trial on the ${pi.p.n} plan:</b> 100 uploads, ends ${fmtD(pi.daysLeft)}. After that: $${pi.p.p} a month, ${pi.p.prof} profiles and ${pi.p.cap} uploads a month.</p>`:S.pstate==='canceled'?`<p><b>${pi.p.n} plan: canceled.</b> Uploading is off. Reading and exporting still work.</p>`:`<p><b>${pi.p.n} plan:</b> $${pi.p.p} a month, ${pi.p.prof} profiles and ${pi.p.cap} uploads a month. Resets ${fmtD(S.resetIn)}.</p>`}
+  <div class="scroll"><table><tr><th>Plan</th><th>Price</th><th>Profiles</th><th>Uploads a month</th></tr>${PLANS.map(p=>`<tr><td>${p.n}${p.n===S.planN?' <span class="chip ok">Yours</span>':''}</td><td>$${p.p}/month</td><td>${p.prof}</td><td>${p.cap}</td></tr>`).join('')}</table></div><p class="sub">To change plans, contact us.</p>
+  <details style="margin-top:10px"><summary>Demo only: preview each plan state</summary><div class="seg"><button class="btn ghost sm" onclick="setState('t1')">Trial, day 2</button><button class="btn ghost sm" onclick="setState('t2')">Trial, 85 of 100 used</button><button class="btn ghost sm" onclick="setState('t3')">Trial, all 100 used</button><button class="btn ghost sm" onclick="setState('t4')">Trial ended</button><button class="btn ghost sm" onclick="setState('a1')">Paid, 212 of ${pi.p.cap}</button><button class="btn ghost sm" onclick="setState('a2')">Paid, almost full</button><button class="btn ghost sm" onclick="setState('a3')">Paid, full</button><button class="btn ghost sm" onclick="setState('c')">Canceled</button></div><p class="sub">In the real app only we can change this. An agency's own settings page cannot.</p></details></div>`;
+ return `<h1>Admin</h1><p class="sub">Owner only.</p>${planCard}
+ <h2>Profiles</h2><div class="card"><p><b>${n} of ${cap} profiles used</b>, including yours.</p>
+ <div style="height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 14px"><div style="height:100%;width:${n/cap*100}%;background:var(--accent)"></div></div>
+ ${S.flash?`<div class="note good">${esc(S.flash)}</div>`:''}
+ <div class="scroll"><table><tr><th>Name</th><th>Role</th><th>Client access</th><th>Two-factor</th><th></th></tr>${S.users.map((u,i)=>`<tr><td>${esc(u.name)}<br><span class="sub">${esc(u.email)}</span></td><td>${roleL(u.role)}</td>
+  <td>${u.role==='admin'?'All clients':u.all?'All clients':u.ids.map(k=>esc((S.clients[k]||{name:k}).name)).join(', ')||'None'}</td><td>${u.mfa?'<span class="chip ok">On</span>':'<span class="chip warn">Off</span>'}</td>
+  <td>${u.role==='admin'?'':`<button class="link" onclick="S.editU=S.editU===${i}?null:${i};draw()">Access</button> · <button class="link" onclick="resetPw(${i})">Reset password</button>${u.mfa?` · <button class="link" onclick="S.users[${i}].mfa=false;S.users[${i}].backup=[];log('Owner reset two-factor for ${esc(u.name)}');S.flash='Two-factor reset for ${esc(u.name)}. They set it up again at next sign-in.';draw()">Reset 2FA</button>`:''} · <button class="link" onclick="rmUser(${i})">Remove</button>`}</td></tr>
+  ${S.editU===i?`<tr><td colspan="5"><label class="inl"><input type="checkbox" ${u.all?'checked':''} onchange="S.users[${i}].all=this.checked;draw()"> Can see every client</label>${u.all?'':`<div class="seg">${Object.entries(S.clients).map(([k,c])=>`<label class="inl"><input type="checkbox" ${u.ids.includes(k)?'checked':''} onchange="toggleAcc(${i},'${k}',this.checked)"> ${esc(c.name)}</label>`).join('')}</div>`}</td></tr>`:''}`).join('')}</table></div></div>
+ <div class="card"><h3>Add a staff profile</h3>${full?`<div class="note">Your plan includes ${cap} profiles, and all are in use. Remove a profile or upgrade your plan to add another.</div>`:`<div class="row" style="margin-top:12px"><input type="text" id="nn" placeholder="Full name" aria-label="Full name"><input type="email" id="ne" placeholder="Email" aria-label="Email"><input type="text" id="np" placeholder="Temporary password (12+ characters)" aria-label="Temporary password"></div><p><button class="btn" onclick="addUser()">Add profile</button></p><div id="uerr"></div>`}</div>
+ <h2>Settings</h2><div class="card">
+  <p><b>Client upload portal link</b> <span class="sub">(optional)</span><br><input type="url" value="${esc(S.portal)}" onchange="S.portal=this.value" aria-label="Portal link"><br><span class="hint">Used in reminder emails instead of a Deskfile upload link. Can be a third-party system. Leave blank to use Deskfile's private links.</span></p>
+  <p><b>Send to review below ${S.threshold}% confidence</b><br><input type="range" min="50" max="99" value="${S.threshold}" aria-label="Review threshold" oninput="S.threshold=+this.value;this.previousElementSibling&&0;document.getElementById('thv').textContent=this.value"> <span id="thv">${S.threshold}</span>%</p>
+  <p><b>File name pattern for downloads</b><br><input type="text" id="pat" value="${esc(S.pattern)}" oninput="S.pattern=this.value||DEFPAT;patPrev()" aria-label="File name pattern"><br><span class="hint">Use {client} {type} {date} {received} {policy_number} {carrier}</span><br><span class="sub">Example: </span><span id="patx"></span></p>
+  <p><label class="inl"><input type="checkbox" ${S.keepOrig?'checked':''} onchange="S.keepOrig=this.checked"> Keep an encrypted copy of each file for preview</label></p>
+  <p><label class="inl"><input type="checkbox" ${S.requireMfa?'checked':''} onchange="S.requireMfa=this.checked;log('Require two-factor set to '+this.checked)"> Require two-factor sign-in for everyone</label></p>
+  <p><b>Automatically delete stored original files this many days after filing</b><br><input type="number" min="1" max="365" value="${S.origDays}" style="max-width:140px" onchange="S.origDays=Math.max(1,+this.value||30);log('Original-file deletion set to '+S.origDays+' days after filing');draw()"><br><span class="hint">Only the file is deleted. The extracted fields and searchable text stay, so the client file keeps working.</span></p>
+  <p><b>Days between automatic reminders</b> <input type="number" min="1" max="60" value="${S.remindEvery}" style="max-width:100px" onchange="S.remindEvery=+this.value"> <b>Most per client (1 = send once)</b> <input type="number" min="1" max="20" value="${S.remindMax}" style="max-width:100px" onchange="S.remindMax=+this.value;draw()"></p>
+  <p><b>Agency name (shown to clients)</b><br><input type="text" value="${esc(S.agency)}" onchange="S.agency=this.value" aria-label="Agency name"></p>
+  <p><label class="inl"><input type="checkbox" ${S.autoFile?'checked':''} onchange="S.autoFile=this.checked"> File client uploads and client emails without review when confident</label></p>
+  <p><b>Upload links work for (days)</b> <input type="number" min="1" max="60" value="${S.linkDays}" style="max-width:100px" onchange="S.linkDays=+this.value"> <b>Files allowed per link</b> <input type="number" min="1" max="50" value="${S.linkMax}" style="max-width:100px" onchange="S.linkMax=+this.value"></p>
+  <h3>Sending reminders (SMTP)</h3>
+  <p><input type="text" value="${esc(S.smtp.host)}" placeholder="SMTP host" aria-label="SMTP host" onchange="S.smtp.host=this.value"> <input type="text" value="${esc(S.smtp.port)}" placeholder="Port" aria-label="SMTP port" style="max-width:100px" onchange="S.smtp.port=this.value"></p>
+  <p><input type="text" value="${esc(S.smtp.user)}" placeholder="SMTP user" aria-label="SMTP user" onchange="S.smtp.user=this.value"> <input type="text" value="${esc(S.smtp.from)}" placeholder="Send reminders from" aria-label="Send reminders from" onchange="S.smtp.from=this.value"></p>
+  <h3>Receiving documents by email (IMAP)</h3>
+  <p><input type="text" value="${esc(S.imap.host)}" placeholder="IMAP host" aria-label="IMAP host" onchange="S.imap.host=this.value"> <input type="text" value="${esc(S.imap.user)}" placeholder="IMAP user" aria-label="IMAP user" onchange="S.imap.user=this.value"> <input type="text" value="${esc(S.imap.folder)}" placeholder="Folder" aria-label="IMAP folder" style="max-width:140px" onchange="S.imap.folder=this.value"></p>
+  <p><b>Staff addresses allowed to email documents in (comma-separated)</b><br><input type="text" value="${esc(S.senders)}" onchange="S.senders=this.value" aria-label="Allowed staff addresses"></p>
+  <p class="sub">Email passwords are server secrets. They are never typed or shown on this page.</p>
+  <p><label for="tm"><b>Send a test message to</b></label><br><input type="email" id="tm" placeholder="you@example.com"> <button class="btn ghost sm" onclick="testMail()">Send test</button></p><div id="tme"></div></div>
+ <h2>Retention</h2><div class="card"><p style="margin-top:0" class="sub">Original files are deleted automatically ${S.origDays} days after filing (nightly, and whenever someone signs in). Fields and searchable text stay.</p><p><button class="btn ghost sm" onclick="sweep()">Delete expired original files now</button></p>${S.swmsg?`<div class="note good">${esc(S.swmsg)}</div>`:''}<hr style="border:0;border-top:1px solid var(--line);margin:14px 0"><p class="sub">Separate tool: permanently delete whole documents received more than this many days ago.</p><p><input type="number" id="pd" min="1" max="3650" value="365" style="max-width:140px" aria-label="Delete documents older than (days)"></p>
+  <label class="inl"><input type="checkbox" id="pc"> I understand this permanently deletes documents</label><div id="pme">${S.pmsg||''}</div><p><button class="btn ghost sm" onclick="purge()">Purge</button></p></div>
+ <h2>Sample data</h2><div class="card"><p style="margin-top:0" class="sub">Adds one clearly labeled sample client so you can try things out.</p><button class="btn ghost sm" onclick="loadSample()">Load sample client</button>${S.smsg?`<div class="note good" style="margin-top:10px">${esc(S.smsg)}</div>`:''}</div>
+ <h2>What Deskfile did</h2><div class="card"><div class="seg"><button class="btn ghost sm" onclick="S.verified=verifyChain();draw()">Verify the log</button><button class="btn ghost sm" onclick="tamper()">${S.tamper?'Undo the tampering demo':'Simulate tampering'}</button></div>
+ ${v?`<div class="note ${v.ok?'good':'err'}">${v.ok?`Log intact: ${v.n} entries, each linked to the one before.`:`Entry ${v.at} does not match its fingerprint. Something was changed after it was written.`}</div>`:''}
+ <ul class="list">${S.chain.map((e,i)=>({e,i})).reverse().map(x=>`<li><span>${esc(x.e.m)}<br><span class="hash">${x.e.h}</span></span><span class="sub">${esc(x.e.t)}</span></li>`).join('')}</ul></div>`}
+function sweep(){let n=0;Object.values(S.clients).forEach(c=>c.docs.forEach(d=>{if(d.s==='Filed'&&-d.rd>S.origDays)n++}));S.swmsg=`${n} original file${n==1?' is':'s are'} past the ${S.origDays}-day limit and ${n==1?'was':'were'} deleted. Fields and text were kept.`;log(`Deleted ${n} original files older than ${S.origDays} days`);draw()}
+function patPrev(){const c=S.clients.okafor,d=c.docs[0];const el=document.getElementById('patx');if(el)el.textContent=descName(c,d)}
+function tamper(){if(S.tamper){S.chain[1].m=S.chain[1].m0;S.tamper=false}else{S.chain[1].m=S.chain[1].m0.replace('(61% sure)','(96% sure)');S.tamper=true}S.verified=null;draw()}
+function toggleAcc(i,k,on){const u=S.users[i];u.ids=u.ids.filter(x=>x!==k);if(on)u.ids.push(k);log(`Owner changed client access for ${u.name}`);draw()}
+function testMail(){const v=$('#tm').value.trim();$('#tme').innerHTML=/^\S+@\S+\.\S+$/.test(v)?`<div class="note good">Demo only: nothing was sent. The real app sends a test message to ${esc(v)} through your SMTP server and tells you if it fails.</div>`:'<div class="note err">Enter an email address to send the test to.</div>'}
+function purge(){const d=+$('#pd').value;if(!$('#pc').checked){S.pmsg='<div class="note err">Tick the box to confirm first.</div>';draw();return}let n=0;Object.values(S.clients).forEach(c=>{const b=c.docs.length;c.docs=c.docs.filter(x=>-x.rd<=d);n+=b-c.docs.length});S.pmsg=`<div class="note good">${n} document${n==1?'':'s'} older than ${d} days deleted.</div>`;log(`${S.user.name} purged documents older than ${d} days (${n})`);draw()}
+function loadSample(){if(S.clients.samplepat){S.smsg='The sample client is already loaded.';draw();return}S.clients.samplepat={name:'Sample, Pat (sample data)',email:'pat@example.com',pol:['Auto'],days:60,req:["Driver's license","Proof of prior insurance"],skip:{},keep:{},sentN:0,links:[],docs:[{t:"Driver's license",rd:-3,s:'Filed',c:95,src:'staff',fn:'sample license.pdf',moved:false,f:{name:'Pat Sample',state:'MA'}}],qa:[],contacts:['pat@example.com']};S.smsg='Sample client added. Find it under Clients.';log(S.user.name+' loaded sample data');draw()}
+function resetPw(i){const u=S.users[i],tmp='Temp-'+Math.random().toString(36).slice(2,10)+'-Pw1';u.pw=tmp;log('Owner reset the password for '+u.name);S.flash=`Temporary password for ${u.name}: ${tmp}. They must change it at next sign-in.`;draw()}
+function addUser(){const name=$('#nn').value.trim(),email=$('#ne').value.trim().toLowerCase(),pw=$('#np').value,m=t=>$('#uerr').innerHTML=`<div class="note err">${t}</div>`;
+ if(S.users.length>=profCap())return m('Your plan is full.');if(!name||!/^\S+@\S+\.\S+$/.test(email))return m('Enter a name and a valid email.');
+ if(pw.length<12)return m('The temporary password needs at least 12 characters.');if(S.users.some(u=>u.email===email))return m('That email already has a profile.');
+ S.users.push({name,email,pw,role:'staff',mfa:false,backup:[],all:false,ids:[]});log('Owner added staff profile for '+name);draw()}
+function rmUser(i){const u=S.users[i];if(!u||u.role==='admin')return;S.users.splice(i,1);S.editU=null;log('Owner removed the profile for '+u.name);draw()}
+// ---- account ----
+function account(){const u=S.user;
+ return `<h1>Account</h1><p class="sub">${esc(u.name)} · ${esc(u.email)}</p>
+ ${S.flash?`<div class="note good">${esc(S.flash)}</div>`:''}${S.requireMfa&&!u.mfa?'<div class="note">Your owner requires two-factor sign-in. Set it up below to continue.</div>':''}
+ <h2>Change password</h2><div class="card"><p><label for="cp0">Current password</label><br><input type="password" id="cp0" autocomplete="current-password"></p><p><label for="cp1">New password (12+ characters)</label><br><input type="password" id="cp1" autocomplete="new-password"></p><p><label for="cp2">Repeat new password</label><br><input type="password" id="cp2" autocomplete="new-password"></p><div id="cpe"></div><button class="btn" onclick="chPw()">Change password</button></div>
+ <h2>Two-factor sign-in</h2><div class="card">${u.mfa?`<p><span class="chip ok">On</span> You will be asked for a code from your authenticator app each time you sign in.</p><p class="sub">${(u.backup||[]).length} recovery code${(u.backup||[]).length==1?'':'s'} left.</p><p><label for="offpw">Password, to turn it off or to get new recovery codes</label><br><input type="password" id="offpw" autocomplete="current-password"></p><div id="offe"></div><button class="btn ghost sm" onclick="turnOff()">Turn off</button> <button class="btn ghost sm" onclick="newBackup()">Get new recovery codes</button>`:S.mfaSetup?`<p>Scan the code in your authenticator app, or type this key in: <b>JBSWY3DPEHPK3PXP</b> (demo key). Then enter the 6-digit code it shows. In this demo, use <b>123456</b>.</p><div class="row"><input type="text" id="mc" inputmode="numeric" maxlength="6" placeholder="6-digit code" aria-label="Authenticator code"><button class="btn" onclick="enrol()">Confirm</button></div><div id="mce"></div>`:`<p><span class="chip warn">Off</span> Add a second step to sign-in.</p><button class="btn" onclick="S.mfaSetup=true;draw()">Set up two-factor</button>`}
+ ${S.codes?`<div class="note">Save these recovery codes now. Each works once if you lose your phone.</div><pre>${S.codes.join('\n')}</pre>`:''}</div>`}
+function newBackup(){const u=S.user;if($('#offpw').value!==u.pw){$('#offe').innerHTML='<div class="note err">That password is not right.</div>';return}u.backup=mk();S.codes=u.backup.slice();log(u.name+' made new recovery codes');S.flash='New recovery codes made. The old ones no longer work.';draw()}
+function turnOff(){const u=S.user;if($('#offpw').value!==u.pw){$('#offe').innerHTML='<div class="note err">That password is not right.</div>';return}u.mfa=false;u.backup=[];S.codes=null;log(u.name+' turned off two-factor');S.flash='Two-factor is off.';draw()}
+function chPw(){const u=S.user,m=t=>$('#cpe').innerHTML=`<div class="note err">${t}</div>`,a=$('#cp0').value,b=$('#cp1').value,c=$('#cp2').value;
+ if(a!==u.pw)return m('The current password is wrong.');if(b.length<12)return m('The new password needs at least 12 characters.');if(b!==c)return m("The two new passwords don't match.");if(b===a)return m('Choose a password different from the current one.');
+ u.pw=b;log(u.name+' changed their password');S.flash='Password changed.';draw()}
+function enrol(){const c=$('#mc').value.trim();if(c!=='123456'){$('#mce').innerHTML='<div class="note err">That code is not right. Check the time on your phone and try again.</div>';return}
+ S.user.mfa=true;S.mfaSetup=false;S.codes=mk();S.user.backup=S.codes.slice();log(S.user.name+' turned on two-factor');S.flash='Two-factor is on.';draw()}
+// ---- public pages ----
+function calc(){const v=i=>Math.max(0,parseFloat(document.getElementById(i).value)||0),docs=v('r1'),h=docs*Math.max(0,v('r2')-v('r3'))/60,val=h*v('r4'),pl=PLANS.find(p=>docs<=p.cap);
+ $('#ro1').textContent=(Math.round(h*10)/10).toLocaleString('en-US')+' hours';$('#ro2').textContent=money(val);
+ if(!pl){$('#ro3').textContent='Custom';$('#ro4').textContent="Let's talk";$('#ro5').textContent='n/a';$('#ro6').textContent='That volume is above Plus. Ask for custom pricing.';return}
+ const net=val-pl.p;$('#ro3').textContent=pl.n;$('#ro4').textContent=money(pl.p);$('#ro5').textContent=money(net);
+ $('#ro6').textContent=h<=0?'With these numbers Deskfile would not save time. Check the minutes.':net<0?'At these numbers the plan costs more than the time it frees. Time a few real documents.':'An estimate from your own numbers, not a promise.'}
+function landing(){return `<div class="land"><div class="top"><div class="brand"><span>Deskfile</span></div><button class="btn" onclick="S.page='login';draw()">Try the demo</button></div>
+<div class="hero2"><div><h1>Your team's hours go to clients, not to renaming attachments.</h1><p class="lead">Deskfile reads the paperwork your clients send, files it under the right client and policy, and shows what's still missing. You review only what it isn't sure about.</p>
+<div class="row"><button class="btn big" onclick="S.page='login';draw()">Try the demo</button><a class="btn big ghost" href="#pricing">See pricing</a></div></div>
+<div class="pilot"><h3>Try it free for 7 days</h3><p style="margin:8px 0 0">Pick a plan and upload up to 100 of your own documents. We email you 2 days before the trial ends. Cancel before it ends and you pay nothing.</p></div></div>
+<h2 style="margin-top:20px">What happens to each document</h2>
+<div class="grid3" style="margin-top:14px"><div class="step"><h3>It arrives</h3><p>Staff upload files, clients use a private upload link, or documents are emailed in. Photos, scans and PDFs all work.</p></div><div class="step"><h3>It gets recognized</h3><p>Deskfile identifies the type, reads the key fields and matches it to a client. It shows how sure it is.</p></div><div class="step"><h3>It gets filed or reviewed</h3><p>Clear matches are filed with a proper name. Anything unsure waits for a person.</p></div><div class="step"><h3>It moves to your system</h3><p>Download the named files or copy the ready note, then tick it off. Deskfile works beside your current software.</p></div></div>
+<h2 id="calc">What would it save your agency?</h2><p class="sub">Use your own numbers. Time how long your team really takes to file one document and enter it here.</p>
+<div class="roi card" style="margin-top:14px"><div><div class="f2"><label for="r1">Documents handled per month</label><input type="number" id="r1" value="1000" min="0" step="10" oninput="calc()"></div><div class="f2"><label for="r2">Minutes to handle one document today <span class="hint">open, identify, name, file, key in</span></label><input type="number" id="r2" value="5" min="0" step="0.5" oninput="calc()"></div><div class="f2"><label for="r3">Minutes per document with Deskfile <span class="hint">quick review plus moving the file</span></label><input type="number" id="r3" value="1.5" min="0" step="0.5" oninput="calc()"></div><div class="f2"><label for="r4">Staff cost per hour, with payroll costs ($)</label><input type="number" id="r4" value="28" min="0" step="1" oninput="calc()"></div></div>
+<div class="out"><span>Staff time freed per month</span><b class="big2" id="ro1"></b><dl><dt>Value of that time</dt><dd id="ro2"></dd><dt>Matching plan</dt><dd id="ro3"></dd><dt>Plan price per month</dt><dd id="ro4"></dd><dt>Left over after the plan</dt><dd id="ro5"></dd></dl><div class="fine" id="ro6" style="color:inherit;opacity:.9"></div></div></div>
+<h2 id="pricing">Simple monthly plans</h2><p class="sub">Every plan starts with 7 days free and 100 uploads. We email you 2 days before the trial ends, and you can cancel before then. Founders' offers for the first agencies: 3 months at 15% off, or the annual plan with a month free.</p>
+<div class="plans" style="margin-top:14px"><div class="plan"><h3>Starter</h3><div class="price">$500<small> / month</small></div><div class="sub">Up to 400 documents a month</div><ul><li>5 staff profiles</li><li>Sorting, naming, matching</li><li>Review list and client upload links</li><li>Founders: 3 months for about $1,275</li></ul></div>
+<div class="plan"><h3>Standard</h3><div class="price">$750<small> / month</small></div><div class="sub">Up to 700 documents a month</div><ul><li>10 staff profiles</li><li>Everything in Starter</li><li>Missing-document reminders and email intake</li><li>Founders: 3 months for about $1,900</li></ul></div>
+<div class="plan feat"><h3>Plus</h3><div class="price">$950<small> / month</small></div><div class="sub">Up to 1,200 documents a month</div><ul><li>15 staff profiles</li><li>Everything in Standard</li><li>Priority setup help</li><li>Founders: 3 months for about $2,425, or $10,500 a year (a month free)</li></ul></div></div>
+<p class="fine">Prices are planned and may change before launch. Founders' offers are limited to the first agencies.</p>
+<h2>Your data</h2><div class="grid3" style="margin-top:14px"><div class="tile"><h3>Encrypted when stored</h3><p>Document text, fields, file names and stored originals are encrypted.</p></div><div class="tile"><h3>Sensitive numbers masked</h3><p>Social Security, card and license numbers are masked before text goes to the AI model.</p></div><div class="tile"><h3>Originals deleted automatically</h3><p>Stored original files are deleted 30 days after filing (you can change the number). Extracted fields and searchable text stay. Everything can be exported or deleted on request.</p></div><div class="tile"><h3>Every action is logged</h3><p>A tamper-evident log shows who viewed, downloaded and exported what.</p></div><div class="tile"><h3>Unsure goes to a person</h3><p>Low-confidence documents wait in a review list. Nothing is filed silently.</p></div><div class="tile"><h3>An early product</h3><p>No independent security audit or certification yet. A one-page security summary is available on request.</p></div></div>
+<h2>What it never does</h2><div class="card"><ul style="margin:0;padding-left:1.1rem;color:var(--muted)"><li>Quote, bind or change a policy</li><li>Give coverage advice</li><li>Replace your management system</li></ul></div>
+<h2>Questions agencies ask</h2>
+<details class="faq"><summary>Do I have to switch software?</summary><p>No. Deskfile works beside your current system. You move the named files and notes across, and tick them off as moved.</p></details>
+<details class="faq"><summary>What if it files a document under the wrong client?</summary><p>Unsure matches go to the review list. Every document shows how sure Deskfile was, and any document can be moved to another client in one click. The log records it.</p></details>
+<details class="faq"><summary>Where does the document text go?</summary><p>It is processed by Google's Gemini service. Sensitive numbers are masked first, and names and policy details can still be in the text. Ask for the one-page summary for the full picture.</p></details>
+<details class="faq"><summary>What does the trial cost?</summary><p>Nothing for the first 7 days. You pick a plan and enter a card. We email you 2 days before the trial ends, and if you cancel before it ends you are not charged. After that it is billed monthly unless you choose one of the discounted plans.</p></details>
+<details class="faq"><summary>How long are my original files kept?</summary><p>Stored original files are deleted 30 days after they are filed. The fields Deskfile read and the searchable text stay, so the client file keeps working. You can change the number of days.</p></details>
+<div class="cta2"><h2 style="margin:0 0 10px">Look around the demo</h2><p>Every screen uses made-up clients. Sign in with the demo login shown on the next page.</p><button class="btn big" onclick="S.page='login';draw()">Try the demo</button></div>
+<p class="fine">Example names and documents on this page are fictional.</p></div>`}
+function login(){
+ if(S.reset==='ask')return resetAsk();if(S.reset==='new')return resetNew();
+ if(S.pending){return `<div class="card" style="max-width:460px;margin:30px auto"><h1>Two-factor code</h1><p class="sub">Open your authenticator app and enter the 6-digit code. Lost your phone? Use a recovery code instead. Demo code: <b>123456</b></p><p><label for="mfa">Code</label><br><input type="text" id="mfa" inputmode="numeric" maxlength="6" autocomplete="one-time-code" onkeydown="if(event.key==='Enter')doCode()"></p><div id="lerr"></div><button class="btn" onclick="doCode()">Verify and sign in</button> <button class="btn ghost" onclick="S.pending=null;draw()">Start over</button></div>`}
+ const o=S.lrole==='admin',k="onkeydown=\"if(event.key==='Enter')doLogin()\"";
+ return `<div class="card" style="max-width:460px;margin:30px auto"><button class="link back" onclick="S.page='landing';draw()">Back to home</button><h1>Sign in</h1>
+<div class="tabs" style="margin-top:16px"><button aria-pressed="${o}" onclick="S.lrole='admin';draw()">Owner</button><button aria-pressed="${!o}" onclick="S.lrole='staff';draw()">Staff</button></div>
+<p class="sub">${o?'For the agency owner. You manage profiles and settings.':'For agency staff. Your owner creates your profile.'}</p>
+<p><label for="em">Email</label><br><input type="email" id="em" autocomplete="username" ${k}></p><p><label for="pw">Password</label><br><input type="password" id="pw" autocomplete="current-password" ${k}></p>
+<div id="lerr">${S.loginNote||''}</div><button class="btn" onclick="doLogin()">Sign in as ${o?'owner':'staff'}</button> <button class="link" style="margin-left:12px" onclick="S.reset='ask';S.resetMsg=null;draw()">Forgot password?</button>
+<p class="sub" style="margin-top:14px">Demo login (made-up, no real security): ${o?'dana@agency.example / owner-demo-1234. The owner account asks for a code too.':'sam@agency.example / staff-demo-1234. Sam sees two clients only. priya@agency.example sees all.'}</p></div>`}
+function doLogin(){S.loginNote=null;const e=$('#em').value.trim().toLowerCase(),u=S.users.find(x=>x.email===e&&x.pw===$('#pw').value),m=t=>$('#lerr').innerHTML=`<div class="note err">${t}</div>`;
+ if(!u)return m("That email and password don't match. Check them and try again.");
+ if(u.role!==S.lrole)return m(`This is ${u.role==='admin'?'an owner':'a staff'} profile. Use the ${u.role==='admin'?'Owner':'Staff'} tab.`);
+ if(u.mfa){S.pending=u;draw();return}finish(u)}
+function doCode(){const c=$('#mfa').value.replace(/\s/g,'').toLowerCase(),u=S.pending;
+ if(c==='123456'){S.pending=null;finish(u);return}
+ const i=(u.backup||[]).indexOf(c);if(i>-1){u.backup.splice(i,1);log(u.name+' used a recovery code');S.pending=null;finish(u);return}
+ $('#lerr').innerHTML='<div class="note err">That code is not right. Codes change every 30 seconds, so enter the newest one.</div>'}
+function resetAsk(){return `<div class="card" style="max-width:460px;margin:30px auto"><button class="link back" onclick="S.reset=null;draw()">Back to sign in</button><h1>Reset password</h1>
+<p class="sub">Enter your email. If it has a profile, we'll send a link to choose a new password. The link works once and expires in 30 minutes. Check spam if it does not arrive.</p>
+<p><label for="rem">Email</label><br><input type="email" id="rem"></p><div id="rerr">${S.resetMsg||''}</div><button class="btn" onclick="doReset()">Send reset link</button></div>`}
+function doReset(){const e=$('#rem').value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(e)){$('#rerr').innerHTML='<div class="note err">Enter a valid email address.</div>';return}
+ S.resetEmail=S.users.find(u=>u.email===e)?e:null;log('Password reset requested');
+ $('#rerr').innerHTML='<div class="note good">If that email has a profile, a reset link is on its way. It works once and expires in 30 minutes.</div>'+(S.resetEmail?'<p class="sub" style="margin-top:10px">Demo only: in the real app the link arrives by email. <button class="link" onclick="S.reset=\'new\';draw()">Open the emailed link</button></p>':'')}
+function resetNew(){return `<div class="card" style="max-width:460px;margin:30px auto"><h1>Choose a new password</h1><p><label for="np1">New password (12+ characters)</label><br><input type="password" id="np1" autocomplete="new-password"></p><p><label for="np2">New password again</label><br><input type="password" id="np2" autocomplete="new-password"></p><div id="nperr"></div><button class="btn" onclick="doNew()">Save new password</button><p class="sub" style="margin-top:10px">Two-factor sign-in stays on, so the link alone is never enough to sign in.</p></div>`}
+function doNew(){const a=$('#np1').value,b=$('#np2').value,m=t=>$('#nperr').innerHTML=`<div class="note err">${t}</div>`;if(a.length<12)return m('Use at least 12 characters.');if(a!==b)return m("The two passwords don't match.");
+ const u=S.users.find(x=>x.email===S.resetEmail);if(!u)return m('This link has expired or was already used. Ask for a new one.');u.pw=a;S.resetEmail=null;log(u.name+' chose a new password using an emailed link');S.reset=null;S.loginNote='<div class="note good">Password changed. You can sign in now.</div>';draw()}
+function finish(u){S.user=u;S.view=S.requireMfa&&!u.mfa?'account':'today';S.flash=null;log(u.name+' signed in');draw();window.scrollTo(0,0)}
+function logout(){S.user=null;S.cid=null;S.page='landing';S.flash=null;draw()}
+document.querySelectorAll('nav [data-v]').forEach(b=>b.onclick=()=>nav(b.dataset.v));
+draw();
+</script>
+</body></html>
